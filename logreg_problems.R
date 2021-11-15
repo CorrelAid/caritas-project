@@ -7,9 +7,9 @@ raw_2021 <- read.csv2("A:/Rohdaten/Rohdaten_2021.csv", encoding = "UTF-8")
 problem_set <- raw_2021 %>% select(Geschlecht, Familiensituation, Alter = Alter.des.der.Klient.in, Bildungsabschluss, 
                                    Kinder = Anzahl.der.Kinder.im.Haushalt, Migrationshintergrund = Migrationshintergrund.des.Hilfesuchenden, 
                                    Einkommenssituation.verschlechtert, Corona.Schulden, Corona.Wohnschulden, Corona.Enegrieschulden, 
-                                   Problemlage..sozialrechtliche.Probleme, Problemlage..Umgang.mit.Beh?rden, Problemlage..Sanktionen.nach.SGB.II, 
+                                   Problemlage..sozialrechtliche.Probleme, Problemlage..Umgang.mit.Behörden, Problemlage..Sanktionen.nach.SGB.II, 
                                    Problemlage..Arbeitslosigkeit, Problemlage..Sprachprobleme, Problemlage..Partner...Erziehung..fam..., 
-                                   Problemlage..Behinderung, Problemlage..Alter.Pflegebed?rftigkeit, Problemlage..Krankheit, Problemlage..Bereich.Wohnen,
+                                   Problemlage..Behinderung, Problemlage..Alter.Pflegebedürftigkeit, Problemlage..Krankheit, Problemlage..Bereich.Wohnen,
                                    Problemlage..Energieschulden, Problemlage..Mietschulden, Problemlage..Schulden.allgemein,
                                    Problemlage..sonstige.finanzielle.Prob.) %>%
   filter (Geschlecht != "", Geschlecht != "Divers", Familiensituation != "", Kinder != "", Alter != "", Bildungsabschluss != "") %>%
@@ -52,8 +52,8 @@ log_mod5 <- glm(Problemlage..sozialrechtliche.Probleme ~ Kinder + Migrationshint
                 family = binomial(logit), data = problem_set)
 summary(log_mod5)
 
-#Umgang mit Beh?rden
-log_mod6 <- glm(Problemlage..Umgang.mit.Beh?rden ~ Kinder + Migrationshintergrund + Geschlecht + Familiensituation + Alter + Bildungsabschluss,
+#Umgang mit Behörden
+log_mod6 <- glm(Problemlage..Umgang.mit.Behörden ~ Kinder + Migrationshintergrund + Geschlecht + Familiensituation + Alter + Bildungsabschluss,
                 family = binomial(logit), data = problem_set)
 summary(log_mod6)
 
@@ -82,8 +82,8 @@ log_mod10 <- glm(Problemlage..Behinderung ~ Kinder + Migrationshintergrund + Ges
                  family = binomial(logit), data = problem_set)
 summary(log_mod10)
 
-#Alter/Pflegebed?rftigkeit
-log_mod11 <- glm(Problemlage..Alter.Pflegebed?rftigkeit ~ Kinder + Migrationshintergrund + Geschlecht + Familiensituation + Alter + Bildungsabschluss,
+#Alter/Pflegebedürftigkeit
+log_mod11 <- glm(Problemlage..Alter.Pflegebedürftigkeit ~ Kinder + Migrationshintergrund + Geschlecht + Familiensituation + Alter + Bildungsabschluss,
                  family = binomial(logit), data = problem_set)
 summary(log_mod11)
 
