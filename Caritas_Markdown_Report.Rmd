@@ -1,0 +1,55 @@
+---
+title: "Correlaid Caritas Report"
+author: "Correlaid Team"
+date: "14 11 2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("A:/Correlaid Caritas/Caritas_Data_Cleaning_2010_to_2021.R", encoding = "UTF-8")
+```
+
+## Anteil Migrationshintergrund im Zeitverlauf
+```{r}
+COLORS <- c(
+  Hilfesuchender = "red",
+  Partner = "blue"
+)
+
+ggplot(ts_migration2, aes(x = Jahr, y = Prozent, group = Migrationshintergrund, color = Migrationshintergrund)) +
+  geom_line(size = 0.9) +
+  geom_point(color = "#0099f9", size = 2) +
+  scale_color_manual(values = COLORS) +
+  labs(
+    title = "Migrationshintergrund",
+    subtitle = "2010-2021"
+  ) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+```
+
+## Bildungsabschluss im Zeitverlauf
+```{r}
+COLORS <- c(
+  abgeschlossene.Berufsausbildung = "red",
+  kein.Abschluss = "blue",
+  Schulabschluss = "green",
+  Studienabschluss = "orange"
+)
+
+ggplot(ts_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, color = Bildungsabschluss)) +
+  geom_line(size = 0.9) +
+  geom_point(color = "#0099f9", size = 2) +
+  scale_color_manual(values = COLORS) +
+  labs(
+    title = "Bildungsabschluss",
+    subtitle = "2010-2021"
+  ) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+```
