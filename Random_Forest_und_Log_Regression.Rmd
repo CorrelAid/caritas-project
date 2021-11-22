@@ -638,8 +638,8 @@ logit_korrespondenzhilfe <- glm(as.factor(korrespondenzhilfe) ~ kinder
                          + schulabschluss 
                          + ausbildung_oder_studium 
                          + alg2 + kindergeld 
-                         + jobcenter_schwierig + Krankheit 
-                         + Behinderung 
+                         + jobcenter_schwierig + krankheit 
+                         + behinderung 
                          + corona_fin_schlechter 
                          + corona_wohnschulden 
                          + online_beratung, data = df, 
@@ -652,7 +652,7 @@ fit_RF_korr <- randomForest(as.factor(korrespondenzhilfe) ~ kinder
                            + schulabschluss + 
                              ausbildung_oder_studium + alg2 
                            + kindergeld + jobcenter_schwierig 
-                           + Krankheit + Behinderung 
+                           + krankheit + behinderung 
                            + corona_fin_schlechter 
                            + corona_wohnschulden 
                            + online_beratung, data=df,
@@ -669,8 +669,8 @@ logit_weitervermittlung <- glm(as.factor(weitervermittlung) ~ kinder
                          + schulabschluss 
                          + ausbildung_oder_studium 
                          + alg2 + kindergeld 
-                         + jobcenter_schwierig + Krankheit 
-                         + Behinderung 
+                         + jobcenter_schwierig + krankheit 
+                         + behinderung 
                          + corona_fin_schlechter 
                          + corona_wohnschulden 
                          + online_beratung, data = df, 
@@ -683,7 +683,7 @@ fit_RF_wv <- randomForest(as.factor(weitervermittlung) ~ kinder
                            + schulabschluss + 
                              ausbildung_oder_studium + alg2 
                            + kindergeld + jobcenter_schwierig 
-                           + Krankheit + Behinderung 
+                           + krankheit + behinderung 
                            + corona_fin_schlechter 
                            + corona_wohnschulden 
                            + online_beratung, data=df,
