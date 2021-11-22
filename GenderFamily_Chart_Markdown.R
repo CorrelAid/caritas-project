@@ -1,19 +1,5 @@
----
-title: "FamilyGender_Chart_Markdown"
-author: "Christoph Wolf"
-date: "20 11 2021"
-output: pdf_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
-
-```{r}
 library(tidyverse)
-```
 
-```{r}
 raw_2013 <- read.csv2("A:/Rohdaten/Rohdaten_2013.csv", encoding = "UTF-8")
 raw_2014 <- read.csv2("A:/Rohdaten/Rohdaten_2014.csv", encoding = "UTF-8")
 raw_2014 <- raw_2014[-1,]
@@ -33,9 +19,9 @@ raw_2019 <- read.csv2("A:/Rohdaten/Rohdaten_2019.csv", encoding = "UTF-8")
 raw_2019 <- raw_2019[c(2:2987),]
 raw_2020 <- read.csv2("A:/Rohdaten/Rohdaten_2020.csv", encoding = "UTF-8")
 raw_2021 <- read.csv2("A:/Rohdaten/Rohdaten_2021.csv", encoding = "UTF-8")
-```
 
-```{r}
+
+
 gender_family_2013 <- raw_2013 %>% select(Geschlecht, Familiensituation) %>%
   filter (Geschlecht != "", Geschlecht != "Divers", Familiensituation != "") %>%
   mutate(Geschlecht = replace(Geschlecht, which(Geschlecht == 1), "Weiblich")) %>%
@@ -118,11 +104,7 @@ gender_family_2021 <- raw_2021 %>% select(Geschlecht, Familiensituation) %>%
   filter (Geschlecht != "", Geschlecht != "Divers", Familiensituation != "") %>%
   count(Geschlecht, Familiensituation) %>%
   mutate(Prozent = round((n/sum(n))*100,2))
-```
 
-
-
-```{r}
 ts_gender_family <- data.frame(
   
   Jahr = as.character(c(2013,2014,2015,2016,2017,2018,2019,2020,2021)),
@@ -155,22 +137,3 @@ COLORS <- c(Männlich.Alleinerziehend = "#145da0", Männlich.Alleinstehend = "#0
 
 LABELS <- c(Männlich.Alleinerziehend = "Alleinerziehende Männer", Männlich.Alleinstehend = "Alleinstehende Männer", Männlich.Ehe.Partnerschaft.Familie = "Männer in Partnerschaft/Familie",  
             Weiblich.Alleinerziehend = "Alleinerziehende Frauen", Weiblich.Alleinstehend = "Alleinstehende Frauen", Weiblich.Ehe.Partnerschaft.Familie = "Frauen in Partnerschaft/Familie")
-```
-
-Betrachtet man das Geschlecht kombiniert mit den jeweiligen Familienständen der Hilfesuchenden, so ist eindeutig zu erkennen, dass die mit Abstand kleinste Gruppe jene der alleinerziehenden Männer ist (konstant über die letzten Jahre). Auch viele andere Kombinationen scheinen über den Zeitverlauf recht konstant geblieben zu sein; nur der relative Anteil der Gruppe der Männer in einer Partnerschaft/Ehe/Familie schwankt über die Jahre zwischen 15% und 20%. Außerdem ist ein leichter negativer Trend im relativen Anteil der Gruppe der alleinerziehenden Frauen zu erkennen.
-
-```{r}
-ggplot(ts_gender_family2, aes(x = Jahr, y = Prozent, group = Familienstand, color = Familienstand)) +
-  geom_line(size = 0.9) +
-  geom_point(color = "black", size = 1.5) +
-  scale_color_manual(values = COLORS, labels = LABELS) +
-  labs(
-    title = "Familienstand & Geschlecht",
-    subtitle = "2013-2021"
-  ) +
-  theme(
-    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
-  )
-```
-

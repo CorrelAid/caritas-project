@@ -1023,7 +1023,7 @@ ggplot(data = income2_2012, aes(x = Einkommen, y = Prozent)) +
 #Problemlage 2012
 
 problems2_2012 <- data.frame(
-  Einkommen = c("sozialrechtliche Probleme", "Partner/Erziehung/familiäre Probleme", "Umgang mit Behörde", "psychische Probleme", "Arbeitslosigkeit",
+  Problemlage = c("sozialrechtliche Probleme", "Partner/Erziehung/familiäre Probleme", "Umgang mit Behörde", "psychische Probleme", "Arbeitslosigkeit",
                 "Krankheit", "Sanktionen nach SGB II", "Alter/Pflegebedürftigkeit", "Schulden", "Schwangerschaft", "Energie- oder Mietschulden",
                 "Behinderung", "Sonstige finanzielle Schwierigkeiten", "Probleme im Bereich Wohnen"),
   n = c(782, 575, 969, 609, 422, 574, 106, 159, 768, 137, 312, 194, 936, 551),
