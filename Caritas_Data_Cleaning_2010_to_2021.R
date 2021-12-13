@@ -1,6 +1,6 @@
 library (tidyverse)
 
-
+##### 2010 #####
 #Rohdaten 2010 leider nicht verfügbar - Ich nutze deshalb die Daten aus den zusammengefassten Tabellen im Excel Sheet
 
 tables_2010 <- read.csv2("A:/Rohdaten/Tabellendaten_2010.csv", encoding = "UTF-8", check.names = FALSE)
@@ -187,7 +187,7 @@ ggplot(data = measures2_2010, aes(x = Maßnahmen, y = Prozent)) +
     plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
   )
 
-
+##### 2011 #####
 #Rohdaten 2011 einlesen (directory anpassen)
 
 raw_2011 <- read.csv2("A:/Rohdaten/Rohdaten_2011.csv", encoding = "UTF-8")
@@ -657,7 +657,7 @@ ggplot(data = measures2_2011, aes(x = Maßnahme, y = Prozent)) +
     plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
   )
 
-
+##### 2012 #####
 #Rohdaten 2012 leider nicht verfügbar - Ich nutze deshalb die Daten aus den zusammengefassten Tabellen im Excel Sheet
 
 tables_2012 <- read.csv2("A:/Rohdaten/Tabellendaten_2012.csv", encoding = "UTF-8", check.names = FALSE)
@@ -1023,7 +1023,7 @@ ggplot(data = income2_2012, aes(x = Einkommen, y = Prozent)) +
 #Problemlage 2012
 
 problems2_2012 <- data.frame(
-  Einkommen = c("sozialrechtliche Probleme", "Partner/Erziehung/familiäre Probleme", "Umgang mit Behörde", "psychische Probleme", "Arbeitslosigkeit",
+  Problemlage = c("sozialrechtliche Probleme", "Partner/Erziehung/familiäre Probleme", "Umgang mit Behörde", "psychische Probleme", "Arbeitslosigkeit",
                 "Krankheit", "Sanktionen nach SGB II", "Alter/Pflegebedürftigkeit", "Schulden", "Schwangerschaft", "Energie- oder Mietschulden",
                 "Behinderung", "Sonstige finanzielle Schwierigkeiten", "Probleme im Bereich Wohnen"),
   n = c(782, 575, 969, 609, 422, 574, 106, 159, 768, 137, 312, 194, 936, 551),
@@ -1068,7 +1068,7 @@ ggplot(data = measures2_2012, aes(x = Maßnahmen, y = Prozent)) +
 
 
 
-
+##### 2013 #####
 #Rohdaten 2013 einlesen (directory anpassen)
 
 raw_2013 <- read.csv2("A:/Rohdaten/Rohdaten_2013.csv", encoding = "UTF-8")
@@ -1629,7 +1629,7 @@ ggplot(data = measures2_2013, aes(x = Maßnahme, y = Prozent)) +
     plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
   )
 
-
+##### 2014 #####
 #Rohdaten 2014 einlesen (directory anpassen)
 
 raw_2014 <- read.csv2("A:/Rohdaten/Rohdaten_2014.csv", encoding = "UTF-8")
@@ -2092,7 +2092,7 @@ ggplot(data = measures2_2014, aes(x = Maßnahme, y = Prozent)) +
     plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
   )
 
-
+##### 2015 #####
 #Rohdaten 2015 einlesen (directory anpassen)
 
 raw_2015 <- read.csv2("A:/Rohdaten/Rohdaten_2015.csv", encoding = "UTF-8")
@@ -2555,7 +2555,7 @@ ggplot(data = measures2_2015, aes(x = Maßnahme, y = Prozent)) +
   )
 
 
-
+##### 2016 #####
 #Rohdaten 2016 einlesen (directory anpassen)
 
 raw_2016 <- read.csv2("A:/Rohdaten/Rohdaten_2016.csv", encoding = "UTF-8")
@@ -3023,7 +3023,7 @@ ggplot(data = measures2_2016, aes(x = Maßnahme, y = Prozent)) +
     plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
   )
 
-
+##### 2017 #####
 #Rohdaten 2017 einlesen (directory anpassen)
 
 raw_2017 <- read.csv2("A:/Rohdaten/Rohdaten_2017.csv", encoding = "UTF-8")
@@ -3492,7 +3492,7 @@ ggplot(data = measures2_2017, aes(x = Maßnahme, y = Prozent)) +
   )
 
 
-
+##### 2018 #####
 #Rohdaten 2018 einlesen (directory anpassen)
 
 raw_2018 <- read.csv2("A:/Rohdaten/Rohdaten_2018.csv", encoding = "UTF-8")
@@ -3932,7 +3932,7 @@ ggplot(data = measures2_2018, aes(x = Maßnahme, y = Prozent)) +
   )
 
 
-
+##### 2019 #####
 #Rohdaten 2019 einlesen (directory anpassen)
 
 raw_2019 <- read.csv2("A:/Rohdaten/Rohdaten_2019.csv", encoding = "UTF-8")
@@ -4399,7 +4399,7 @@ ggplot(data = measures2_2019, aes(x = Maßnahme, y = Prozent)) +
     plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
   )
 
-
+##### 2020 #####
 #Rohdaten 2020 einlesen (directory anpassen)
 
 raw_2020 <- read.csv2("A:/Rohdaten/Rohdaten_2020.csv", encoding = "UTF-8")
@@ -4848,7 +4848,7 @@ ggplot(data = measures2_2020, aes(x = Maßnahme, y = Prozent)) +
   )
 
 
-
+##### 2021 #####
 #Rohdaten 2021 einlesen (directory anpassen)
 
 raw_2021 <- read.csv2("A:/Rohdaten/Rohdaten_2021.csv", encoding = "UTF-8")
@@ -5298,7 +5298,7 @@ ggplot(data = measures2_2021, aes(x = Maßnahme, y = Prozent)) +
   )
 
 
-#Zeitreihen
+###### Zeitreihen #####
 
 #Beratungsgespräch 2010-2021
 
@@ -5578,6 +5578,17 @@ ggplot(ts_migration2, aes(x = Jahr, y = Prozent, group = Migrationshintergrund, 
   scale_color_manual(values = COLORS) +
   labs(
     title = "Migrationshintergrund",
+    subtitle = "2010-2021"
+  ) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+
+ggplot(ts_talk2, aes(x = Jahr, y = Prozent, fill = Beratung)) + 
+  geom_bar(stat = "identity", color = "black") +
+  labs(
+    title = "Beratungsgespräch",
     subtitle = "2010-2021"
   ) +
   theme(
