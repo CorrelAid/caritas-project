@@ -1,3 +1,7 @@
+library(tidyverse)
+library(dplyr)
+source("C:/Users/Caritas_Data_Cleaning_2010_to_2021.R")
+
 # Recoding
 
 problems2_2010 <- problems2_2010 %>% 
@@ -104,9 +108,9 @@ ts_problems <- ts_problems %>% select(Problemlage, contains("Prozent"))
 colnames(ts_problems) <- c("Problemlage", "2010", "2011", "2012", "2013", "2014", "2015", "2016",
                            "2017", "2018", "2019", "2020", "2021")
 
-ts_problems2 <- ts_problems %>% pivot_longer(!Problemlage, 
-                                             names_to = "Jahr", 
-                                             values_to = "Prozent") %>%
+ts_problems2 <- ts_problems %>% pivot_longer(!Problemlage,
+                                     names_to = "Jahr", 
+                                     values_to = "Prozent") %>%
   mutate(Problemlage = factor(Problemlage,
                               levels = c("Alter/Pflegebedürftigkeit", "Behinderung", 
                                          "Krankheit (auch psychische Probleme)", "Schwangerschaft", 
