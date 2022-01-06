@@ -2,7 +2,7 @@ library(tidyverse)
 library(dplyr)
 library(RColorBrewer)
 
-source("Caritas_Data_Cleaning_2010_to_2021.R")
+source("Caritas_Data_Cleaning_2010_to_2021.R",encoding = "UTF-8")
 
 # Analyse: Problemlage Mietschulden ####
 
@@ -1703,3 +1703,4 @@ problems_hh <- ts_problems_hamburg2 %>%
         plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)) +
   scale_color_brewer(palette = "Paired")
 ggsave(problems_hh, file = "problems_hh.jpeg", unit = "cm", height = 12, width = 21, dpi = 500)
+
