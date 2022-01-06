@@ -7,12 +7,12 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-source("A:/Correlaid Caritas/Caritas_Data_Cleaning_2010_to_2021.R", encoding = "UTF-8")
+source("skripte/Caritas_Data_Cleaning_2010_to_2021.R", encoding = "UTF-8")
 ```
 
 # Familienstand & Geschlecht
 ```{r Setup Familienstand, include=FALSE}
-source("A:/Correlaid Caritas/GenderFamily_Chart_Markdown.R", encoding = "UTF-8")
+source("skripte/GenderFamily_Chart_Markdown.R", encoding = "UTF-8")
 ```
 
 ```{r Grafik Familienstand}
@@ -40,6 +40,8 @@ ggplot(ts_gender_family2, aes(x = Jahr, y = Prozent, group = Familienstand, colo
 Betrachtet man das Geschlecht kombiniert mit den jeweiligen Familienständen der Hilfesuchenden, so ist eindeutig zu erkennen, dass die mit Abstand kleinste Gruppe jene der alleinerziehenden Männer ist (konstant über die letzten Jahre). Auch viele andere Kombinationen scheinen über den Zeitverlauf recht konstant geblieben zu sein; nur der relative Anteil der Gruppe der Männer in einer Partnerschaft/Ehe/Familie schwankt über die Jahre zwischen 15% und 20%. Außerdem ist ein leichter negativer Trend im relativen Anteil der Gruppe der alleinerziehenden Frauen zu erkennen.
 
 ## Anteil Migrationshintergrund im Zeitverlauf
+
+
 ```{r Grafik Migrationshintergrund}
 COLORS <- c(
   Hilfesuchender = "red",
@@ -90,15 +92,44 @@ ggplot(ts_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, colo
 
 Der Anteil der Personen mit abgeschlossener Berufsausbildung liegt dauerhaft über 35 Prozent und macht damit die größte Gruppe aus. Im Zeitverlauf nimmt der Anteil allerdings ab, insbesondere seit 2019. Der Anteil der Personen ohne Bildungsabschluss steigt leicht seit 2013 und bildet aktuell die zweitgrößte Gruppe.
 
+```{r Migration + Bildung, include=FALSE}
+source("skripte/Grafik_Migration_Bildung.R", encoding = "UTF-8")
+```
+
+```{r Grafik Migration + Bildung}
+ggplot(ts_no_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, color = Bildungsabschluss)) +
+  geom_line(size = 0.9) +
+  geom_point(color = "#0099f9", size = 2) +
+  scale_color_manual(values = COLORS) +
+  labs(
+    title = "Bildungsabschluss ohne Migrationshintergrund",
+    subtitle = "2013-2021"
+  ) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+
+```
+
 # Problemlagen im Zeitverlauf
 ```{r Problemlagen Setup, include=FALSE}
-source("A:/Correlaid Caritas/Caritas_Abbildung_Problemlagen.R", encoding = "UTF-8")
+source("skripte/Grafik_Problemlagen.R", encoding = "UTF-8")
 ```
 
 ```{r Problemlagen Grafik, warning = FALSE, message = FALSE, fig.width = 9}
 plot_problems
 ```
 Sozialrechtliche Probleme und der Umgang mit Behörden steigen unter den Problemlagen im Zeitverlauf an, letzteres macht seit 2019 den größten Anteil aus. Im Jahr 2018 kamen besonders viele Menschen mit finanziellen Schwierigkeiten in die ASB (47%), danach nimmt der Anteil wieder ab. Der Anteil der Personen mit Krankheiten und psychischen Problemen sinkt dagegen im Laufe der Zeit, insbesondere seit 2017 und liegt seitdem konstant unter 30%.
+
+# Analyse der Problemlage Mietschulden für Berlin
+```{r Wohnen Setup, include=FALSE}
+source("skripte/Grafik_Wohnen.R", encoding = "UTF-8")
+```
+
+```{r Wohnen Grafik, warning = FALSE, message = FALSE, fig.width = 9}
+problems_bb
+```
 
 # Analyse mit Random Forest: Wer bekommt eine Finanzhilfe?
 
