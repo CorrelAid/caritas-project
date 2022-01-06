@@ -1,0 +1,120 @@
+---
+title: "Correlaid Caritas Report"
+author: "Correlaid Team"
+date: "22 11 2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("A:/Correlaid Caritas/Caritas_Data_Cleaning_2010_to_2021.R", encoding = "UTF-8")
+```
+
+# Familienstand & Geschlecht
+```{r Setup Familienstand, include=FALSE}
+source("A:/Correlaid Caritas/GenderFamily_Chart_Markdown.R", encoding = "UTF-8")
+```
+
+```{r Grafik Familienstand}
+COLORS <- c(Männlich.Alleinerziehend = "#145da0", Männlich.Alleinstehend = "#0c2d48", Männlich.Ehe.Partnerschaft.Familie = "#b1d4e0",  
+            Weiblich.Alleinerziehend = "#fb6090", Weiblich.Alleinstehend = "#821d30", Weiblich.Ehe.Partnerschaft.Familie = "#ffc5d0")
+
+LABELS <- c(Männlich.Alleinerziehend = "Alleinerziehende Männer", Männlich.Alleinstehend = "Alleinstehende Männer", Männlich.Ehe.Partnerschaft.Familie = "Männer in Partnerschaft/Familie",  
+            Weiblich.Alleinerziehend = "Alleinerziehende Frauen", Weiblich.Alleinstehend = "Alleinstehende Frauen", Weiblich.Ehe.Partnerschaft.Familie = "Frauen in Partnerschaft/Familie")
+
+ggplot(ts_gender_family2, aes(x = Jahr, y = Prozent, group = Familienstand, color = Familienstand)) +
+  geom_line(size = 0.9) +
+  geom_point(color = "black", size = 1.5) +
+  scale_color_manual(values = COLORS, labels = LABELS) +
+  labs(
+    title = "Familienstand & Geschlecht",
+    subtitle = "2013-2021"
+  ) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+```
+
+
+Betrachtet man das Geschlecht kombiniert mit den jeweiligen Familienständen der Hilfesuchenden, so ist eindeutig zu erkennen, dass die mit Abstand kleinste Gruppe jene der alleinerziehenden Männer ist (konstant über die letzten Jahre). Auch viele andere Kombinationen scheinen über den Zeitverlauf recht konstant geblieben zu sein; nur der relative Anteil der Gruppe der Männer in einer Partnerschaft/Ehe/Familie schwankt über die Jahre zwischen 15% und 20%. Außerdem ist ein leichter negativer Trend im relativen Anteil der Gruppe der alleinerziehenden Frauen zu erkennen.
+
+## Anteil Migrationshintergrund im Zeitverlauf
+```{r Grafik Migrationshintergrund}
+COLORS <- c(
+  Hilfesuchender = "red",
+  Partner = "blue"
+)
+
+ggplot(ts_migration2, aes(x = Jahr, y = Prozent, group = Migrationshintergrund, color = Migrationshintergrund)) +
+  geom_line(size = 0.9) +
+  geom_point(color = "black", size = 2) +
+  scale_color_manual(values = COLORS) +
+  labs(
+    title = "Migrationshintergrund",
+    subtitle = "2010-2021"
+  ) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+```
+
+
+Der Anteil an Menschen mit Migrationshintergrund steigt im Laufe der Zeit, insbesondere von 2015 zu 2016 ist ein deutlicher Anstieg erkennbar.
+
+## Bildungsabschluss im Zeitverlauf
+```{r Grafik Bildung}
+COLORS <- c(
+  kein.Abschluss = "blue",
+  Schulabschluss = "green",
+  Studienabschluss = "orange",
+  abgeschlossene.Berufsausbildung = "red"
+)
+
+ggplot(ts_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, color = Bildungsabschluss)) +
+  geom_line(size = 0.9) +
+  geom_point(color = "black", size = 2) +
+  scale_color_manual(values = COLORS) +
+  labs(
+    title = "Bildungsabschluss",
+    subtitle = "2010-2021"
+  ) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+
+```
+
+
+Der Anteil der Personen mit abgeschlossener Berufsausbildung liegt dauerhaft über 35 Prozent und macht damit die größte Gruppe aus. Im Zeitverlauf nimmt der Anteil allerdings ab, insbesondere seit 2019. Der Anteil der Personen ohne Bildungsabschluss steigt leicht seit 2013 und bildet aktuell die zweitgrößte Gruppe.
+
+# Problemlagen im Zeitverlauf
+```{r Problemlagen Setup, include=FALSE}
+source("A:/Correlaid Caritas/Caritas_Abbildung_Problemlagen.R", encoding = "UTF-8")
+```
+
+```{r Problemlagen Grafik, warning = FALSE, message = FALSE, fig.width = 9}
+plot_problems
+```
+Sozialrechtliche Probleme und der Umgang mit Behörden steigen unter den Problemlagen im Zeitverlauf an, letzteres macht seit 2019 den größten Anteil aus. Im Jahr 2018 kamen besonders viele Menschen mit finanziellen Schwierigkeiten in die ASB (47%), danach nimmt der Anteil wieder ab. Der Anteil der Personen mit Krankheiten und psychischen Problemen sinkt dagegen im Laufe der Zeit, insbesondere seit 2017 und liegt seitdem konstant unter 30%.
+
+# Analyse mit Random Forest: Wer bekommt eine Finanzhilfe?
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+source("A:/Correlaid Caritas/Random_Forest_und_Log_Regression_Finanzhilfe.R", encoding = "UTF-8")
+```
+
+```{r Random Forest 1, message=FALSE, warning=FALSE}
+varImpPlot(fit_RF, main="Abbildung 1: Random Forest - Variable Importance Plot")
+```
+
+Die Abbildung zeigt die Auswertung des Random Forest Modells, um zu analysieren welche Personengruppen eine höhere Wahrscheinlichkeit haben als Maßnahme der ASB eine Finanzhilfe zu erhalten. Die Graphik stellt die relative Wichtigkeit der verschiedenen Variablen dar, von größerem Interesse ist der linke Teil. Demzufolge sind die Anzahl der Kinder, ob man ALG II erhält, das Alter, der Familienstand (ledig / alleinerziehend / Familie/Ehe) und ob die Beratung online stattgefunden hat, die wichtigsten Einflussfaktoren, d.h. sie haben den größten Einfluss auf die Wahrscheinlichkeit, dass eine Person eine Finanzhilfe zu erhält. 
+Das Random Forest Modell sagt jedoch nichts über das Vorzeichen der Effekte aus, weswegen wir zudem ein logistisches Regressionsmodell hinzuziehen. Dieses zeigt, dass Menschen mit mehr Kindern, alleinstehende Menschen, kranke Menschen sowie Menschen, die ALG II beziehen, eine höhere Wahrscheinlichkeit haben, eine Finanzhilfe zu bekommen. Menschen, deren Beratung online stattfand, hatten eine statistisch signifikant niedrigere Wahrscheinlichkeit eine Finanzhilfe zu erhalten. Das Geschlecht und der Bildungsgrad scheinen dagegen keinen großen Einfluss auf die Wahrscheinlichkeit eine Finanzhilfe zu erhalten zu haben.
+
+Wir haben diese Analysen ebenfalls für die weiteren Maßnahmen durchgeführt (Antraghilfe, Korrespondenzhilfe, Weitervermittlung), der Übersicht halber jedoch hier nicht alle aufgeführt. Bei Interesse können wir hier natürlich ins Detail gehen.
+
+Darüber hinaus haben wir analog logistische Regressionsanalysen für die verschiedenen Problemlagen durchgeführt. Hier zeigen wir beispielhaft die Ergebnisse für die Problemlage "Corona-Wohnschulden". Bei Interesse schicken wir Euch gerne die Auswertung für die anderen Problemlagen zu.
+
+Aus der Analyse geht hervor, dass drei Faktoren einen statistisch signifikanten Einfluss auf die Wahrscheinlichkeit Corona-Wohnschulden zu haben nehmen: weibliche Personen, Personen mit Migrationshintergrund und Personen mit Ausbildung oder Studienabschluss haben eine geringere Wahrscheinlichkeit in die Situation von Corona-induzierten Wohnschulden zu kommen.

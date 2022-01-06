@@ -67,7 +67,7 @@ problems2_2018 <- problems2_2018 %>%
     Problemlage %in% c("Energieschulden", "Mietschulden") ~ "Energie- oder Mietschulden",
     Problemlage %in% "Schulden allgemein" ~ "Schulden",
     TRUE ~ Problemlage),
-    ) %>%
+  ) %>%
   group_by(Problemlage) %>%
   summarize_all(sum)
 
@@ -108,7 +108,7 @@ ts_problems <- ts_problems %>% select(Problemlage, contains("Prozent"))
 colnames(ts_problems) <- c("Problemlage", "2010", "2011", "2012", "2013", "2014", "2015", "2016",
                            "2017", "2018", "2019", "2020", "2021")
 
-ts_problems2 <- ts_problems %>% pivot_longer(!Problemlage, 
+ts_problems2 <- ts_problems %>% pivot_longer(!Problemlage,
                                      names_to = "Jahr", 
                                      values_to = "Prozent") %>%
   mutate(Problemlage = factor(Problemlage,
@@ -119,9 +119,26 @@ ts_problems2 <- ts_problems %>% pivot_longer(!Problemlage,
                                          "Sonstige finanzielle Schwierigkeiten", "Probleme im Bereich Wohnen", 
                                          "Partner/Erziehung/familiäre Probleme", "Sonstiges")))
 
-plot_problems <- ts_problems2 %>%
+prob_selection <- ts_problems2 %>%
+  group_by(Problemlage) %>%
+  summarize(max_p = max(Prozent, na.rm = TRUE)) %>%
+  filter(max_p >= 10)
+
+ts_problems3 <- ts_problems2 %>%
+  semi_join(prob_selection, by="Problemlage")
+
+
+plot_problems <- ts_problems3 %>%
   filter(Problemlage != "Sonstiges") %>%
   ggplot(aes(x = Jahr, y = Prozent, group = Problemlage, color = Problemlage)) +
   geom_line(size = 1.1) + 
-  theme_linedraw() 
-ggsave(plot_problems, file = "plot_problems.jpeg", unit = "cm", height = 12, width = 21, dpi = 500)
+  theme_linedraw() +
+  labs(
+    title = "Problemlagen",
+    subtitle = "2010-2021"
+  ) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+#ggsave(plot_problems, file = "plot_problems.jpeg", unit = "cm", height = 12, width = 21, dpi = 500)
