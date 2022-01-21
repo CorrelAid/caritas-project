@@ -217,7 +217,7 @@ problems_bb
 ```
 
 # Statistische Analysen
-Die nachfolgenden Graphiken dienen der Auswertung der Fragestellung: Welche Faktoren haben maßgeblichen Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage ausgesetzt zu sein? Alle Analysen basieren auf den Fragebogendaten für das Jahr 2021. Um zu analysieren welche Personen eine höhere Wahrscheinlichkeit haben mit einer bestimmten Problemlage konfrontiert zu sein, haben wir Random Forest Modelle angewandt. Diese ermöglichen eine Einschätzung der relativen Variablenwichtigkeit. Denjenigen Variablen, die einen größeren „Mean Decrease in Accuracy“ ermöglichen, d.h. die abhängige Variable besser zu erklären, wird eine höhere relative Variablenwichtigkeit zugesprochen. 
+Die nachfolgenden Graphiken dienen der Auswertung der Fragestellung: Welche Faktoren haben maßgeblichen Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage ausgesetzt zu sein? Alle Analysen basieren auf den Fragebogendaten für das Jahr 2021. Um zu analysieren welche Personen eine höhere Wahrscheinlichkeit haben mit einer bestimmten Problemlage konfrontiert zu sein, haben wir Random Forest Modelle angewandt. Diese ermöglichen eine Einschätzung der relativen Variablenwichtigkeit. Denjenigen Variablen, die einen größeren „Mean Decrease in Accuracy“ ermöglichen, d.h. die abhängige Variable besser erklären, wird eine höhere relative Variablenwichtigkeit zugesprochen. 
 \medskip 
 \newline 
 \noindent 
@@ -435,7 +435,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 8: Wer hat Schulden?")
 ```
 
-Abbildung 8 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben Schulden aufzuweisen. Dies sind Männer und interessanter Menschen ohne Migrationshintergrund (jeweils Signifikanzniveau von 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 10%). Das Alter, der Familienstand und die Anzahl der Kinder scheinen dagegen wenig Einfluss auf die Schuldenlage zu haben. 
+Abbildung 8 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben Schulden aufzuweisen. Dies sind Männer und interessanterweise Menschen ohne Migrationshintergrund (jeweils Signifikanzniveau von 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 10%). Das Alter, der Familienstand und die Anzahl der Kinder scheinen dagegen wenig Einfluss auf die Schuldenlage zu haben. 
 
 
 ```{r RF Finanzen, include = FALSE}
@@ -462,7 +462,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 9: Für wen hat sich die finanzielle \n Lage infolge von Corona verschlechtert?")
 ```
 
-Abbildung 9 analysiert, bei welchen Personen sich tendenziell die finanzielle Situation infolge der Corona-Pandemie verschlechtert hat. Dies sind Menschen mit Migrationshintergrund (1% Signifikanzniveau), alleinstehende und alleinerziehende Menschen und behinderte Menschen sowie interessanterweise Menschen mit Abschluss (jeweils 5% Signifikanzniveau). Dagegen scheint es keine signifikante Unterschiede nach Alter, Geschlecht und Krankheit zu geben.
+Abbildung 9 analysiert, bei welchen Personen sich die finanzielle Situation infolge der Corona-Pandemie tendenziell verschlechtert hat. Dies sind Menschen mit Migrationshintergrund (1% Signifikanzniveau), alleinstehende und alleinerziehende Menschen und behinderte Menschen sowie interessanterweise Menschen mit Abschluss (jeweils 5% Signifikanzniveau). Dagegen scheint es keine signifikante Unterschiede nach Alter, Geschlecht und Krankheit zu geben.
 
 
 ```{r RF Sozialrechtlich, include = FALSE}
@@ -516,7 +516,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 11: Wem wurden \n Sanktionen auferlegt?")
 ```
 
-Abbildung 11 analysiert, wer eine höhere Wahrscheinlichkeit hat nach Strafgesetzbuch 2 mit Sanktionen belegt worden zu sein. Dies ist der Fall für jüngere Menschen (1% Signifikanzniveau), alleinstehende und alleinerziehende Personen (5% Signifikanzniveau), Menschen mit Migrationshintergrund und Männer (jeweils 10% Signifikanzniveau).
+Abbildung 11 analysiert, wer eine höhere Wahrscheinlichkeit hat nach Strafgesetzbuch 2 mit Sanktionen belegt worden zu sein. Dies ist der Fall für jüngere Menschen (Signifikanzniveau von 1%), alleinstehende und alleinerziehende Personen (Signifikanzniveau von 5%), Menschen mit Migrationshintergrund und Männer (jeweils Signifikanzniveau von 10%).
 
 
 \newpage 
