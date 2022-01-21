@@ -1,7 +1,7 @@
 ---
 title: "Correlaid Caritas Report"
 author: "Correlaid Team"
-date: "22 11 2021"
+date: "21 01 2022"
 output: pdf_document
 ---
 
@@ -39,8 +39,29 @@ ggplot(ts_gender_family2, aes(x = Jahr, y = Prozent, group = Familienstand, colo
 
 Betrachtet man das Geschlecht kombiniert mit den jeweiligen Familienständen der Hilfesuchenden, so ist eindeutig zu erkennen, dass die mit Abstand kleinste Gruppe jene der alleinerziehenden Männer ist (konstant über die letzten Jahre). Auch viele andere Kombinationen scheinen über den Zeitverlauf recht konstant geblieben zu sein; nur der relative Anteil der Gruppe der Männer in einer Partnerschaft/Ehe/Familie schwankt über die Jahre zwischen 15% und 20%. Außerdem ist ein leichter negativer Trend im relativen Anteil der Gruppe der alleinerziehenden Frauen zu erkennen.
 
-## Anteil Migrationshintergrund im Zeitverlauf
+## Vergleich mit Familienstand in der Bevölkerung
+```{r Vergleich Familie SetUp, include=FALSE}
+source("skripte/Grafiken_Repraesentativitaet_Familie.R", encoding = "UTF-8")
+```
 
+```{r Grafik Vergleich Familie}
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+ggplot(Familienstand_Armutsgrenze, aes(x = TIME, y = Prozent, group = Familienstand, color = Familienstand)) +
+  geom_line(size = 0.9) +
+  scale_x_continuous(breaks = seq(2010, 2020, 2)) +
+  labs(
+    title = "Arme/armutsgefährdete Haushalte",
+    subtitle = "2010-2020"
+  ) +
+  scale_colour_manual(values=cbbPalette) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+```
+
+## Anteil Migrationshintergrund im Zeitverlauf
 
 ```{r Grafik Migrationshintergrund}
 COLORS <- c(
@@ -64,6 +85,29 @@ ggplot(ts_migration2, aes(x = Jahr, y = Prozent, group = Migrationshintergrund, 
 
 
 Der Anteil an Menschen mit Migrationshintergrund steigt im Laufe der Zeit, insbesondere von 2015 zu 2016 ist ein deutlicher Anstieg erkennbar.
+
+## Vergleich mit Herkunft in der Bevölkerung
+```{r Vergleich Herkunft SetUp, include=FALSE, warning=FALSE}
+source("skripte/Grafiken_Repraesentativitaet_Herkunft.R", encoding = "UTF-8")
+```
+
+```{r Grafik Vergleich Herkunft, warning=FALSE}
+ggplot(Geburtsland, aes(x = TIME, y = Prozent, group = Geburtsland, color = Geburtsland)) +
+  geom_line(size = 0.9) +
+  geom_point(color = "black", size = 1.5) +
+  scale_x_continuous(breaks = seq(2010, 2020, 2)) +
+  scale_color_discrete(limits= c("Deutschland", "Ausland", 
+                                 "EU", "Drittstaaten")) +
+  labs(
+    title = "Geburtsland, 2010 - 2020",
+    subtitle = "EU und Drittstaaten 2017 - 2020", 
+    x = "Jahr", y = "% der Bevölkerungsgruppe"
+  ) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+```
 
 ## Bildungsabschluss im Zeitverlauf
 ```{r Grafik Bildung}
@@ -92,6 +136,31 @@ ggplot(ts_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, colo
 
 Der Anteil der Personen mit abgeschlossener Berufsausbildung liegt dauerhaft über 35 Prozent und macht damit die größte Gruppe aus. Im Zeitverlauf nimmt der Anteil allerdings ab, insbesondere seit 2019. Der Anteil der Personen ohne Bildungsabschluss steigt leicht seit 2013 und bildet aktuell die zweitgrößte Gruppe.
 
+## Vergleich mit Bildung der Bevölkerung
+```{r Vergleich Bildung SetUp, include=FALSE}
+source("skripte/Grafiken_Repraesentativitaet_Bildung.R", encoding = "UTF-8")
+```
+
+```{r Grafik Vergleich Bildung}
+ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungsabschluss)) +
+  geom_line(size = 0.9) +
+  scale_x_continuous(breaks = seq(2010, 2020, 2)) +
+  scale_color_discrete(limits= c("bis Realschulabschluss (ISCED 0 - 2)", "Abitur, Ausbildung, Berufsschule (ISCED 3 - 4)", 
+                                 "Meisterausbildung, Bachelor, Master, Promotion
+                                 und andere tertiäre Bildung (ISCED 5 - 8)")) +
+  geom_point(color = "black", size = 1.5) +
+  labs(
+    title = "Bildungsabschlüsse in Deutschland",
+    subtitle = "2010-2020",
+    x = "Jahr", y = "% der Bevölkerungsgruppe"
+  ) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+```
+
+## Bildung mit und ohne Migrationshintergrund
 ```{r Migration + Bildung, include=FALSE}
 source("skripte/Grafik_Migration_Bildung.R", encoding = "UTF-8")
 ```
@@ -102,7 +171,7 @@ ggplot(ts_no_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsab
   geom_point(color = "#0099f9", size = 2) +
   scale_color_manual(values = COLORS) +
   labs(
-    title = "Bildungsabschluss ohne Migrationshintergrund",
+    title = "Bildung ohne Migrationshintergrund",
     subtitle = "2013-2021"
   ) +
   theme(
@@ -118,7 +187,7 @@ ggplot(ts_yes_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsa
   geom_point(color = "#0099f9", size = 2) +
   scale_color_manual(values = COLORS) +
   labs(
-    title = "Bildungsabschluss mit Migrationshintergrund",
+    title = "Bildung mit Migrationshintergrund",
     subtitle = "2013-2021"
   ) +
   theme(
@@ -147,21 +216,393 @@ source("skripte/Grafik_Wohnen.R", encoding = "UTF-8")
 problems_bb
 ```
 
+# Statistische Analysen
+Die nachfolgenden Graphiken dienen der Auswertung der Fragestellung: Welche Faktoren haben maßgeblichen Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage ausgesetzt zu sein? Alle Analysen basieren auf den Fragebogendaten für das Jahr 2021. Um zu analysieren welche Personen eine höhere Wahrscheinlichkeit haben mit einer bestimmten Problemlage konfrontiert zu sein, haben wir Random Forest Modelle angewandt. Diese ermöglichen eine Einschätzung der relativen Variablenwichtigkeit. Denjenigen Variablen, die einen größeren „Mean Decrease in Accuracy“ ermöglichen, d.h. die abhängige Variable besser zu erklären, wird eine höhere relative Variablenwichtigkeit zugesprochen. 
+\medskip 
+\newline 
+\noindent 
+Das Random Forest Modell sagt jedoch nichts über das Vorzeichen der Effekte aus. Ein Beispiel: Nehmen wir an, dass laut des Random Forest Modells das Alter der wichtigste Faktor ist hinsichtlich des Vorliegens einer bestimmten Problemlage. Trotz dieser Erkenntnis wissen wir nicht, ob jüngere oder ältere Menschen eher von dieser Problemlage betroffen sind. Daher ziehen wir zudem ein logistisches Regressionsmodell hinzu. Das Vorzeichen der resultierenden Koeffizienten gibt die Richtung des Effektes an. Wir haben dieses Vorzeichen in den Graphiken in Klammern hinter der entsprechenden Variable notiert, sofern der Effekt statistisch signifikant war. In diesen Fällen haben wir ebenfalls das Signifikanzniveau notiert. * bedeutet ein Signifikanzniveau von 10%, ** bedeutet ein Signifikanzniveau von 5% und *** bedeutet ein Signifikanzniveau von 1%. Je mehr Sterne, desto signifikanter ist der Effekt. Hat ein Effekt beispielsweise ein Signifikanzniveau von 10%, bedeutet dies, dass wir mit 90%iger Sicherheit davon ausgehen können, dass der Faktor einen signifikanten Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage hat, während wir dies bei einem Signifikanzniveau von 1% mit 99%iger Sicherheit schlussfolgern können. 
+
+\newpage
+
+```{r Setup RF, include=FALSE, warning=FALSE, message=FALSE}
+source("skripte/SetUp_Statistische_Analysen.R", encoding = "UTF-8")
+```
+
+```{r RF Arbeitslosigkeit, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ *)", abschluss = "Abschluss?", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit? (+ ***)", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung? (- **)", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (- ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (männlich + ***)", migrationshintergrund="Migrationshintergrund?"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 1: Wer ist arbeitslos?")
+```
+
+Abbildung 1 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben arbeitslos zu sein. Dies sind Menschen mit weniger Kindern, Männer, kranke Menschen (Signifikanzniveau von jeweils 1%) sowie alleinstehende und alleinerziehende Menschen und Menschen ohne Behinderung (Signifikanzniveau von 5%). Interessanterweise haben Menschen ohne Abschluss und Menschen mit Migrationshintergrund keine signifikant höhere Wahrscheinlichkeit arbeitslos zu sein. Darüber hinaus lässt sich kein statistisch signifikanter Unterschied nach Alter feststellen.
+
+
+```{r RF ALG2, include = FALSE}
+# Analyse mit Random Forest: Wer bezieht seit über 2 Jahren ALG II?
+fit_RF <- randomForest(as.factor(ALG_24plus) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Wer bezieht seit über 2 Jahren ALG II?
+log_mod <- glm(as.factor(ALG_24plus) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik RF ALG2, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ ***)", abschluss = "Abschluss? (- ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit? (+ **)", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund?"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 2: Wer bezieht seit \n mehr als 2 Jahren ALG II?")
+```
+
+Abbildung 2 analysiert, welche Personen seit mehr als zwei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie kranke Menschen (Signifikanzniveau von 5%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht und dem Vorliegen eines Migrationshintergrunds feststellen. 
+
+
+```{r RF ALG2 3J, include = FALSE}
+# Analyse mit Random Forest: Wer bezieht seit über 3 Jahren ALG II?
+fit_RF <- randomForest(as.factor(ALG_36plus) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Wer bezieht seit über 3 Jahren ALG II?
+log_mod <- glm(as.factor(ALG_36plus) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik RF ALG2 3J, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ ***)", abschluss = "Abschluss? (- ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund?"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 3: Wer bezieht seit \n mehr als 3 Jahren ALG II?")
+```
+
+Abbildung 3 analysiert, welche Personen seit mehr als drei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht, Gesundheitszustand und dem Vorliegen eines Migrationshintergrunds feststellen. 
+
+
+
+```{r LogReg Behörde, include = FALSE}
+# Analyse mit Random Forest: Wer hat Probleme mit den Behörden?
+fit_RF <- randomForest(as.factor(behoerden_probleme) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Wer hat Probleme mit den Behörden?
+log_mod <- glm(as.factor(behoerden_probleme) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik LogReg Behörde, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ ***)", abschluss = "Abschluss? (- ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit? (- **)", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung (+ **)?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund? (+ ***)"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 4: Wer hat \n Probleme mit den Behörden?")
+```
+
+Abbildung 4 analysiert, welche Personen mit höherer Wahrscheinlichkeit Probleme mit den Behörden haben. Wie man erwarten könnte, sind dies Menschen mit Migrationshintergrund, Menschen ohne Abschluss sowie Menschen mit mehr Kindern und alleinstehende und alleinerziehende Menschen (alle jeweils Signifikanzniveau von 1%). Darüber hinaus scheinen behinderte und überraschenderweise gesunde Menschen tendenziell eher Probleme mit den Behörden zu haben (Signifikanzniveau von 5%). Nach Alter und Geschlecht ergeben sich dagegen keine statistisch signifikante Unterschiede.
+
+
+
+```{r RF Erreichbarkeit Jobcenter, include = FALSE}
+# Analyse mit Random Forest: Wer hat Schwierigkeiten das Jobcenter zu erreichen?
+fit_RF <- randomForest(as.factor(jobcenter_schwierig) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Wer hat Schwierigkeiten das Jobcenter zu erreichen?
+log_mod <- glm(as.factor(jobcenter_schwierig) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik RF Erreichbarkeit Jobcenter, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter (- ***)", allein = "Alleinstehend oder alleinerziehend? (+ ***)", abschluss = "Abschluss? (- **)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ *)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund?"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 5: Wer hat Schwierigkeiten \n das Jobcenter zu erreichen?")
+```
+
+Abbildung 5 analysiert, welche Personen mit höherer Wahrscheinlichkeit Schwierigkeiten haben das Jobcenter zu erreichen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), jüngere Menschen, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrunden sowie nach Gesundheitsstatus und Geschlecht.
+
+
+```{r RF Antrag JC, include = FALSE}
+# Analyse mit Random Forest: Wer hat Antragsstellungsschwierigkeiten mit dem Jobcenter?
+fit_RF <- randomForest(as.factor(jobcenterantrag_schwierig) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Wer hat Antragsstellungsschwierigkeiten mit dem Jobcenter?
+log_mod <- glm(as.factor(jobcenterantrag_schwierig) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik RF Antrag JC, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter (- ***)", allein = "Alleinstehend oder alleinerziehend? (+ **)", abschluss = "Abschluss? (- ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung? (- *)", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ **)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (männlich + ***)", migrationshintergrund="Migrationshintergrund?"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 6: Wer hat \n Antragsstellungsschwierigkeiten mit dem Jobcenter?")
+```
+
+Abbildung 6 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben auf Probleme mit dem Jobcenter bei der Antragsstellung zu stoßen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 5%), jüngere Menschen, Männer und Menschen ohne Abschluss (Signifikanzniveau von 1%) sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrunden sowie gesunden und kranken Menschen.
+
+
+```{r RF Familienprobleme, include = FALSE}
+# Analyse mit Random Forest: Wer hat Familienprobleme?
+fit_RF <- randomForest(as.factor(Familienprobleme) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Wer hat Familienprobleme?
+log_mod <- glm(as.factor(Familienprobleme) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik RF Familienprobleme}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter (- ***)", allein = "Alleinstehend oder alleinerziehend?", abschluss = "Abschluss? (+ ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit? (+ ***)", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ *)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (weiblich + ***)", migrationshintergrund="Migrationshintergrund? (+ **)"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 7: Wer hat Familienprobleme?")
+```
+
+Abbildung 7 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit Familienproblemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), kranke Menschen, jüngere Menschen und Frauen (Signifikanzniveau von jeweils 1%) sowie Menschen mit Migrationshintergrund und Menschen mit Abschluss (Signifikanzniveau von jeweils 5%). 
+
+
+```{r RF Schulden, include = FALSE}
+# Analyse mit Random Forest: Wer hat Schulden?
+fit_RF <- randomForest(as.factor(Schulden) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Wer hat Schulden?
+log_mod <- glm(as.factor(Schulden) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik RF Schulden, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend?", abschluss = "Abschluss? (- *)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (männlich + ***)", migrationshintergrund="Migrationshintergrund? (- ***)"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 8: Wer hat Schulden?")
+```
+
+Abbildung 8 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben Schulden aufzuweisen. Dies sind Männer und interessanter Menschen ohne Migrationshintergrund (jeweils Signifikanzniveau von 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 10%). Das Alter, der Familienstand und die Anzahl der Kinder scheinen dagegen wenig Einfluss auf die Schuldenlage zu haben. 
+
+
+```{r RF Finanzen, include = FALSE}
+# Analyse mit Random Forest: Für wen hat sich die finanzielle Lage infolge von Corona verschlechtert?
+fit_RF <- randomForest(as.factor(corona_fin_schlechter) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Für wen hat sich die finanzielle Lage infolge von Corona verschlechtert?
+log_mod <- glm(as.factor(corona_fin_schlechter) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik RF Finanzen, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ **)", abschluss = "Abschluss? (+ **)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung? (+ **)", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund? (+ ***)"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 9: Für wen hat sich die finanzielle \n Lage infolge von Corona verschlechtert?")
+```
+
+Abbildung 9 analysiert, bei welchen Personen sich tendenziell die finanzielle Situation infolge der Corona-Pandemie verschlechtert hat. Dies sind Menschen mit Migrationshintergrund (1% Signifikanzniveau), alleinstehende und alleinerziehende Menschen und behinderte Menschen sowie interessanterweise Menschen mit Abschluss (jeweils 5% Signifikanzniveau). Dagegen scheint es keine signifikante Unterschiede nach Alter, Geschlecht und Krankheit zu geben.
+
+
+```{r RF Sozialrechtlich, include = FALSE}
+# Analyse mit Random Forest: Wer hat sozialrechtliche Probleme?
+fit_RF <- randomForest(as.factor(sozrechtprob) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Wer hat sozialrechtliche Probleme?
+log_mod <- glm(as.factor(sozrechtprob) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik RF Sozialrechtlich, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ **)", abschluss = "Abschluss?", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (weiblich - **)", migrationshintergrund="Migrationshintergrund? (+ ***)"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 10: Wer hat \n sozialrechtliche Probleme?")
+```
+
+Abbildung 10 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit sozialrechtlichen Problemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern, Menschen mit Migrationshintergrund (Signifikanzniveau von jeweils 1%), alleinstehende und alleinerziehende Menschen sowie Männer (Signifikanzniveau von jeweils 5%). Das Alter scheint hingegen keinen maßgeblichen Einfluss zu haben.
+
+
+```{r RF Sanktionen, include = FALSE}
+# Analyse mit Random Forest: Wem wurden Sanktionen auferlegt?
+fit_RF <- randomForest(as.factor(Sanktionen) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Wem wurden Sanktionen auferlegt?
+log_mod <- glm(as.factor(Sanktionen) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik RF Sanktionen, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter (- ***)", allein = "Alleinstehend oder alleinerziehend? (+ **)", abschluss = "Abschluss?", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (männlich + *)", migrationshintergrund="Migrationshintergrund? (+ *)"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 11: Wem wurden \n Sanktionen auferlegt?")
+```
+
+Abbildung 11 analysiert, wer eine höhere Wahrscheinlichkeit hat nach Strafgesetzbuch 2 mit Sanktionen belegt worden zu sein. Dies ist der Fall für jüngere Menschen (1% Signifikanzniveau), alleinstehende und alleinerziehende Personen (5% Signifikanzniveau), Menschen mit Migrationshintergrund und Männer (jeweils 10% Signifikanzniveau).
+
+
+\newpage 
+# Anhang 
+
+Im Anhang sind der Vollständigkeit halber einige weitere Analysen enthalten, die jedoch eher wenig überraschende Ergebnisse beinhalten. 
+
+
+```{r RF Sprachprobleme, include = FALSE}
+# Analyse mit Random Forest: Wer hat Sprachprobleme?
+fit_RF <- randomForest(as.factor(sprachprob) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Wer hat Sprachprobleme?
+log_mod <- glm(as.factor(sprachprob) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik RF Sprachprobleme, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend?", abschluss = "Abschluss? (- ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund? (+ ***)"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 12: Wer hat Sprachprobleme?")
+```
+
+Abbildung 12 analysiert, wer eine höhere Wahrscheinlichkeit hat, mit Sprachproblemen konfrontiert zu sein. Dass dies Menschen mit Migrationshintergrund und Menschen ohne Abschluss sind (Signifikanzniveau von 1% jeweils), überrascht wenig.
+
+
+```{r RF Pflege, include = FALSE}
+# Analyse mit Random Forest: Wer ist pflegebedürftig?
+fit_RF <- randomForest(as.factor(Pflegebeduerftigkeit) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
+
+# Analyse mit logistischer Regression: Wer ist pflegebedürftig?
+log_mod <- glm(as.factor(Pflegebeduerftigkeit) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod)
+```
+
+```{r Grafik RF Pflege, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter (+ ***)", allein = "Alleinstehend oder alleinerziehend?", abschluss = "Abschluss?", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit? (+ ***)", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung? (+ ***)", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund?"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 13: Wer ist pflegebedürftig?")
+```
+
+Abbildung 13 analysiert, welche Personen mit höherer Wahrscheinlichkeit pflegebedürftig sind. Wenig überraschend sind ältere, kranke und behinderte Menschen eher pflegebedürftig (Signifikanzniveau von 1%).
+
+
+```{r RF Finanzhilfe, include = FALSE}
 # Analyse mit Random Forest: Wer bekommt eine Finanzhilfe?
+fit_RF <- randomForest(as.factor(finanzhilfe) ~ kinder + allein + weiblich + alter + abschluss + alg2 + migrationshintergrund + jobcenter_schwierig + krankheit + behinderung + corona_fin_schlechter + online_beratung, data=df,importance=TRUE,ntree=5000)
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
-source("A:/Correlaid Caritas/Random_Forest_und_Log_Regression_Finanzhilfe.R", encoding = "UTF-8")
+# Analyse mit logistischer Regression: Wer bekommt eine Finanzhilfe?
+log_mod <- glm(as.factor(finanzhilfe) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + alg2 + jobcenter_schwierig + behinderung + krankheit + corona_fin_schlechter + online_beratung, data = df, family = binomial)
+summary(log_mod)
 ```
 
-```{r Random Forest 1, message=FALSE, warning=FALSE}
-varImpPlot(fit_RF, main="Abbildung 1: Random Forest - Variable Importance Plot")
+```{r Grafik RF Finanzhilfe, echo = FALSE}
+# Variable Importance Plot erstellen
+imp = as.data.frame(importance(fit_RF))
+imp = cbind(vars=rownames(imp), imp)
+imp = imp[order(imp$MeanDecreaseAccuracy),]
+imp$vars = factor(imp$vars, levels=unique(imp$vars))
+
+# Variablen der Übersichtlichkeit in der Abbildung halber umbenennen
+imp <- imp %>%
+    mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ ***)", abschluss = "Abschluss? (- **)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II? (+ ***)", krankheit = "Krankheit? (+ ***)", online_beratung = "Art der Beratung (online - ***)", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung durch Corona? (- ***)", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund? (- ***)"))
+
+dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 14: \n Wer erhält eine Finanzhilfe?")
 ```
 
-Die Abbildung zeigt die Auswertung des Random Forest Modells, um zu analysieren welche Personengruppen eine höhere Wahrscheinlichkeit haben als Maßnahme der ASB eine Finanzhilfe zu erhalten. Die Graphik stellt die relative Wichtigkeit der verschiedenen Variablen dar, von größerem Interesse ist der linke Teil. Demzufolge sind die Anzahl der Kinder, ob man ALG II erhält, das Alter, der Familienstand (ledig / alleinerziehend / Familie/Ehe) und ob die Beratung online stattgefunden hat, die wichtigsten Einflussfaktoren, d.h. sie haben den größten Einfluss auf die Wahrscheinlichkeit, dass eine Person eine Finanzhilfe zu erhält. 
-Das Random Forest Modell sagt jedoch nichts über das Vorzeichen der Effekte aus, weswegen wir zudem ein logistisches Regressionsmodell hinzuziehen. Dieses zeigt, dass Menschen mit mehr Kindern, alleinstehende Menschen, kranke Menschen sowie Menschen, die ALG II beziehen, eine höhere Wahrscheinlichkeit haben, eine Finanzhilfe zu bekommen. Menschen, deren Beratung online stattfand, hatten eine statistisch signifikant niedrigere Wahrscheinlichkeit eine Finanzhilfe zu erhalten. Das Geschlecht und der Bildungsgrad scheinen dagegen keinen großen Einfluss auf die Wahrscheinlichkeit eine Finanzhilfe zu erhalten zu haben.
+Abbildung 14 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben eine (einmalige) Finanzhilfe infolge der ASB zu erhalten. Menschen mit mehr Kindern, alleinstehende Menschen, kranke Menschen sowie Menschen, die ALG II beziehen, haben eine höhere Wahrscheinlichkeit eine Finanzhilfe zu erhalten. Menschen, deren Beratung online stattfand, hatten eine statistisch signifikant niedrigere Wahrscheinlichkeit eine Finanzhilfe zu erhalten. Selbiges gilt für Menschen mit Migrationshintergrund und Menschen mit Abschluss. Das Geschlecht und das Alter scheinen dagegen keinen großen Einfluss auf die Wahrscheinlichkeit eine Finanzhilfe zu erhalten zu haben.
 
-Wir haben diese Analysen ebenfalls für die weiteren Maßnahmen durchgeführt (Antraghilfe, Korrespondenzhilfe, Weitervermittlung), der Übersicht halber jedoch hier nicht alle aufgeführt. Bei Interesse können wir hier natürlich ins Detail gehen.
 
-Darüber hinaus haben wir analog logistische Regressionsanalysen für die verschiedenen Problemlagen durchgeführt. Hier zeigen wir beispielhaft die Ergebnisse für die Problemlage "Corona-Wohnschulden". Bei Interesse schicken wir Euch gerne die Auswertung für die anderen Problemlagen zu.
-
-Aus der Analyse geht hervor, dass drei Faktoren einen statistisch signifikanten Einfluss auf die Wahrscheinlichkeit Corona-Wohnschulden zu haben nehmen: weibliche Personen, Personen mit Migrationshintergrund und Personen mit Ausbildung oder Studienabschluss haben eine geringere Wahrscheinlichkeit in die Situation von Corona-induzierten Wohnschulden zu kommen.
