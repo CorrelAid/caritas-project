@@ -354,7 +354,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 5: Wer hat Schwierigkeiten \n das Jobcenter zu erreichen?")
 ```
 
-Abbildung 5 analysiert, welche Personen mit höherer Wahrscheinlichkeit Schwierigkeiten haben das Jobcenter zu erreichen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), jüngere Menschen, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrunden sowie nach Gesundheitsstatus und Geschlecht.
+Abbildung 5 analysiert, welche Personen mit höherer Wahrscheinlichkeit Schwierigkeiten haben das Jobcenter zu erreichen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), jüngere Menschen, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie nach Gesundheitsstatus und Geschlecht.
 
 
 ```{r RF Antrag JC, include = FALSE}
@@ -381,7 +381,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 6: Wer hat \n Antragsstellungsschwierigkeiten mit dem Jobcenter?")
 ```
 
-Abbildung 6 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben auf Probleme mit dem Jobcenter bei der Antragsstellung zu stoßen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 5%), jüngere Menschen, Männer und Menschen ohne Abschluss (Signifikanzniveau von 1%) sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrunden sowie gesunden und kranken Menschen.
+Abbildung 6 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben auf Probleme mit dem Jobcenter bei der Antragsstellung zu stoßen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 5%), jüngere Menschen, Männer und Menschen ohne Abschluss (Signifikanzniveau von 1%) sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie gesunden und kranken Menschen.
 
 
 ```{r RF Familienprobleme, include = FALSE}
