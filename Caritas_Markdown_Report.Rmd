@@ -96,13 +96,29 @@ Der Anteil der Personen mit abgeschlossener Berufsausbildung liegt dauerhaft üb
 source("skripte/Grafik_Migration_Bildung.R", encoding = "UTF-8")
 ```
 
-```{r Grafik Migration + Bildung}
+```{r Grafik Bildung ohne Migration}
 ggplot(ts_no_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, color = Bildungsabschluss)) +
   geom_line(size = 0.9) +
   geom_point(color = "#0099f9", size = 2) +
   scale_color_manual(values = COLORS) +
   labs(
     title = "Bildungsabschluss ohne Migrationshintergrund",
+    subtitle = "2013-2021"
+  ) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+  )
+
+```
+
+```{r Grafik Bildung mit Migration}
+ggplot(ts_yes_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, color = Bildungsabschluss)) +
+  geom_line(size = 0.9) +
+  geom_point(color = "#0099f9", size = 2) +
+  scale_color_manual(values = COLORS) +
+  labs(
+    title = "Bildungsabschluss mit Migrationshintergrund",
     subtitle = "2013-2021"
   ) +
   theme(
@@ -123,7 +139,7 @@ plot_problems
 Sozialrechtliche Probleme und der Umgang mit Behörden steigen unter den Problemlagen im Zeitverlauf an, letzteres macht seit 2019 den größten Anteil aus. Im Jahr 2018 kamen besonders viele Menschen mit finanziellen Schwierigkeiten in die ASB (47%), danach nimmt der Anteil wieder ab. Der Anteil der Personen mit Krankheiten und psychischen Problemen sinkt dagegen im Laufe der Zeit, insbesondere seit 2017 und liegt seitdem konstant unter 30%.
 
 # Analyse der Problemlage Mietschulden für Berlin
-```{r Wohnen Setup, include=FALSE}
+```{r Wohnen Setup, include=FALSE, message=FALSE, warning=FALSE}
 source("skripte/Grafik_Wohnen.R", encoding = "UTF-8")
 ```
 

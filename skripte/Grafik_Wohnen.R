@@ -113,8 +113,9 @@ problems_2011_bb <- rbind(
     slice_head()
 )
 
-problems_2011_bb <- problems_2011_bb %>% 
-  rows_update(n = 30, )
+#test <- problems_2011_bb %>% 
+#  rows_update(n = 30, )
+
 
 problems_2011_bb[7,1] <- "Sanktionen nach SGB II"
 problems_2011_bb[7,2] <- 0
