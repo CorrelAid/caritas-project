@@ -65,7 +65,7 @@ ggplot(Familienstand_Armutsgrenze, aes(x = TIME, y = Prozent, group = Familienst
 ```
 
 
-Als Arm und Armutsgefährdet wurden hier Haushalte definiert, die weniger als 60% des Medianeinkommens zur Verfügung haben. Während eine Aufschlüsselung nach Geschlecht mithilfe der Daten nicht möglich war, lässt sich erkennen, dass ein überproportional hoher Anteil Alleinerziehender in die Schuldnerberatung kommt (ca. 20% der Hilfesuchenenden in der Beratung im Vergleich zu etwa 12% in der Bevölkerung). Allerdings sind die Differenzen für keine Gruppe auffällig groß. Anzumerken ist, dass 2020 ein break in series erfolgt ist, die Zahlen also nicht vollkommen vergleichbar mit den vorherigen Jahren sind. Mit Blick darauf sollten vor allem die großen Veränderungen zu 2019 vorsichtig intepretiert werden, da sie gegebenenfalls auf diesen break in series und nicht Veränderungen im Einkommensniveau oder Familienstruktur der Haushalte zurückzuführen sind. 
+Als Arm und Armutsgefährdet wurden hier Haushalte definiert, die weniger als 60% des nationalen Medianeinkommens zur Verfügung haben. Es handelt sich dabei um die Messung relativer Armut und die gewählte Schwelle kann als willkürlich angesehen werden. Während eine Aufschlüsselung nach Geschlecht mithilfe der Daten nicht möglich war, lässt sich erkennen, dass ein überproportional hoher Anteil Alleinerziehender in die Schuldnerberatung kommt (ca. 20% der Hilfesuchenenden in der Beratung im Vergleich zu etwa 12% in der Bevölkerung). Allerdings sind die Differenzen für keine Gruppe auffällig groß. Anzumerken ist, dass 2020 ein break in series erfolgt ist, die Zahlen also nicht vollkommen vergleichbar mit den vorherigen Jahren sind. Mit Blick darauf sollten vor allem die großen Veränderungen zu 2019 vorsichtig intepretiert werden, da sie gegebenenfalls auf diesen break in series und nicht Veränderungen im Einkommensniveau oder Familienstruktur der Haushalte zurückzuführen sind. Quelle: EU-SILC (ilc_lvps02).
 
 
 ## Anteil Migrationshintergrund im Zeitverlauf
@@ -117,7 +117,7 @@ ggplot(Geburtsland, aes(x = TIME, y = Prozent, group = Geburtsland, color = Gebu
 ```
 
 
-Insgesamt lassen sich nur geringe Veränderungen über Zeit feststellen: Die Befragten, die in Deutschland geboren wurden, nehmen nur marginal ab. Proportional nimmt der Anteil der im Ausland geborenen zu, mit einem Höchststand von circa 20% in 2019. Von diesen kommen etwas mehr aus EU-Drittstaaten (also Ländern, die mit Stand 2020 nicht EU-Mitglied sind) als aus der EU (Stand 2020, also ohne UK). Anzumerken ist, dass die Daten für 2020 nur Provisorisch sind.
+Insgesamt lassen sich nur geringe Veränderungen über Zeit feststellen: Die Befragten, die in Deutschland geboren wurden, nehmen nur marginal ab. Proportional nimmt der Anteil der im Ausland geborenen zu, mit einem Höchststand von circa 20% in 2019. Von diesen kommen etwas mehr aus EU-Drittstaaten (also Ländern, die mit Stand 2020 nicht EU-Mitglied sind) als aus der EU (Stand 2020, also ohne UK). Anzumerken ist, dass die Daten für 2020 nur Provisorisch sind.Quelle: EU-LFS (lfsa_pgacws).
 
 ## Bildungsabschluss im Zeitverlauf
 ```{r Grafik Bildung}
@@ -156,8 +156,7 @@ ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungs
   geom_line(size = 0.9) +
   scale_x_continuous(breaks = seq(2010, 2020, 2)) +
   scale_color_discrete(limits= c("Bis Realschulabschluss (ISCED 0 - 2)", "Abitur, Ausbildung, Berufsschule (ISCED 3 - 4)", 
-                                 "Meisterausbildung, Bachelor, Master, Promotion
-                                 und andere tertiäre Bildung (ISCED 5 - 8)")) +
+                                 "Meisterausbildung, Hochschulabschluss (ISCED 5 - 8)")) +
   geom_point(color = "black", size = 1.5) +
   labs(
     title = "Bildungsabschlüsse in Deutschland",
@@ -170,7 +169,7 @@ ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungs
   )
 ```
 
-Grundsätzlich haben die meisten Menschen in Deutschland einen Abschluss, wobei der Anteil der Menschen mit tertiärer Bildung (Meister, Studium) über die Jahre hinweg ansteigt. Es überrascht nicht, dass die niedrig Gebildete in der Beratung überrepräsentiert sind. Die Zahlen für 2020 sind provisorisch und mehrere breaks in series fanden statt, die Zahlen sind also nicht vollumfänglich über Zeit vergleichbar.
+Grundsätzlich haben die meisten Menschen in Deutschland einen Abschluss, wobei der Anteil der Menschen mit tertiärer Bildung (Meister, Studium) über die Jahre hinweg ansteigt. Es überrascht nicht, dass die niedrig Gebildete in der Beratung überrepräsentiert sind. Die Zahlen für 2020 sind provisorisch und mehrere breaks in series fanden statt, die Zahlen sind also nicht vollumfänglich über Zeit vergleichbar. Quelle: EU-LSF (edat_lfse_03).
 
 
 ## Bildung mit und ohne Migrationshintergrund
