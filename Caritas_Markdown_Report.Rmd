@@ -219,7 +219,7 @@ plot_problems
 ```
 Sozialrechtliche Probleme und der Umgang mit Behörden steigen unter den Problemlagen im Zeitverlauf an, letzteres macht seit 2019 den größten Anteil aus. Im Jahr 2018 kamen besonders viele Menschen mit finanziellen Schwierigkeiten in die ASB (47%), danach nimmt der Anteil wieder ab. Der Anteil der Personen mit Krankheiten und psychischen Problemen sinkt dagegen im Laufe der Zeit, insbesondere seit 2017 und liegt seitdem konstant unter 30%.
 
-# Analyse der Problemlage Mietschulden für Berlin
+# Analyse der wohnungsbedingter Problemlagen für Berlin
 ```{r Wohnen Setup, include=FALSE, message=FALSE, warning=FALSE}
 source("skripte/Grafik_Wohnen.R", encoding = "UTF-8")
 ```
@@ -227,6 +227,7 @@ source("skripte/Grafik_Wohnen.R", encoding = "UTF-8")
 ```{r Wohnen Grafik, warning = FALSE, message = FALSE, fig.width = 9}
 problems_bb
 ```
+Der massive Anstieg von Miet- und Energiepreisen bildet sich nur zu einem gewissen Grad an der Entwicklung der Problemlagen ab, weshalb Menschen die Sozialberatung der Caritas aufsuchen. In besonders betroffenen Regionen wie etwa Berlin zeigt sich zwar in den letzten zehn Jahren - mit sichtbaren Schwankungen - ein markanter Anstieg an wohnungsbedingter Probleme, die drängendsten Probleme, weswegen sich Personen an die Sozialberatung wenden, liegen jedoch auch in diesen Regionen (in Einklang mit dem allgemeinen bundesweiten Trend) mit über 50% beim Umgang mit Behörden und im Bereich des Sozialrechts.
 
 # Statistische Analysen
 Die nachfolgenden Graphiken dienen der Auswertung der Fragestellung: Welche Faktoren haben maßgeblichen Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage ausgesetzt zu sein? Alle Analysen basieren auf den Fragebogendaten für das Jahr 2021. Um zu analysieren welche Personen eine höhere Wahrscheinlichkeit haben mit einer bestimmten Problemlage konfrontiert zu sein, haben wir Random Forest Modelle angewandt. Diese ermöglichen eine Einschätzung der relativen Variablenwichtigkeit. Denjenigen Variablen, die einen größeren „Mean Decrease in Accuracy“ ermöglichen, d.h. die abhängige Variable besser erklären, wird eine höhere relative Variablenwichtigkeit zugesprochen. 
