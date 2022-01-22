@@ -15,7 +15,7 @@ df1 <- df %>% mutate(Bildungsabschluss = fct_recode(ISCED11,
                                                     "Bis Realschulabschluss (ISCED 0 - 2)" = "Less than primary, primary and lower secondary education (levels 0-2)",
                                                     "Abitur, Ausbildung, Berufsschule (ISCED 3 - 4)" = 	
                                                       "Upper secondary and post-secondary non-tertiary education (levels 3 and 4)", 
-                                                    "Meisterausbildung, Bachelor, Master, Promotion und andere tertiäre Bildung (ISCED 5 - 8)" = 
+                                                    "Meisterausbildung, Hochschulabschluss (ISCED 5 - 8)" = 
                                                       "Tertiary education (levels 5-8)"))
 
 
@@ -24,8 +24,7 @@ ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungs
   geom_line(size = 0.9) +
   scale_x_continuous(breaks = seq(2010, 2020, 2)) +
   scale_color_discrete(limits= c("bis Realschulabschluss (ISCED 0 - 2)", "Abitur, Ausbildung, Berufsschule (ISCED 3 - 4)", 
-                                 "Meisterausbildung, Bachelor, Master, Promotion
-                                 und andere tertiäre Bildung (ISCED 5 - 8)")) +
+                                 "Meisterausbildung, Hochschulabschluss (ISCED 5 - 8))) +
   geom_point(color = "black", size = 1.5) +
   labs(
     title = "Bildungsabschlüsse in Deutschland",
