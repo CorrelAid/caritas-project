@@ -24,7 +24,7 @@ ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungs
   geom_line(size = 0.9) +
   scale_x_continuous(breaks = seq(2010, 2020, 2)) +
   scale_color_discrete(limits= c("bis Realschulabschluss (ISCED 0 - 2)", "Abitur, Ausbildung, Berufsschule (ISCED 3 - 4)", 
-                                 "Meisterausbildung, Hochschulabschluss (ISCED 5 - 8))) +
+                                 "Meisterausbildung, Hochschulabschluss (ISCED 5 - 8)")) +
   geom_point(color = "black", size = 1.5) +
   labs(
     title = "Bildungsabschlüsse in Deutschland",
@@ -33,7 +33,9 @@ ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungs
   ) +
   theme(
     plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5),
+    legend.position = ,
+    legend.direction = "vertical"
   )
 
 

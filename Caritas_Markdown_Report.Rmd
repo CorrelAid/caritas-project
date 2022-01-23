@@ -44,7 +44,7 @@ Betrachtet man das Geschlecht kombiniert mit den jeweiligen Familienständen der
 source("skripte/Grafiken_Repraesentativitaet_Familie.R", encoding = "UTF-8")
 ```
 
-```{r Grafik Vergleich Familie}
+```{r Grafik Vergleich Familie, warning=FALSE, message=FALSE}
 cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 ggplot(Familienstand_Armutsgrenze, aes(x = TIME, y = Prozent, group = Familienstand, color = Familienstand)) +
@@ -208,7 +208,7 @@ ggplot(ts_yes_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsa
   )
 
 ```
-
+\newpage
 # Problemlagen im Zeitverlauf
 ```{r Problemlagen Setup, include=FALSE}
 source("skripte/Grafik_Problemlagen.R", encoding = "UTF-8")
@@ -229,6 +229,7 @@ problems_bb
 ```
 Der massive Anstieg von Miet- und Energiepreisen bildet sich nur zu einem gewissen Grad an der Entwicklung der Problemlagen ab, weshalb Menschen die Sozialberatung der Caritas aufsuchen. In besonders betroffenen Regionen wie etwa Berlin zeigt sich zwar in den letzten zehn Jahren - mit sichtbaren Schwankungen - ein markanter Anstieg an wohnungsbedingter Probleme, die drängendsten Probleme, weswegen sich Personen an die Sozialberatung wenden, liegen jedoch auch in diesen Regionen (in Einklang mit dem allgemeinen bundesweiten Trend) mit über 50% beim Umgang mit Behörden und im Bereich des Sozialrechts.
 
+\newpage
 # Statistische Analysen
 Die nachfolgenden Graphiken dienen der Auswertung der Fragestellung: Welche Faktoren haben maßgeblichen Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage ausgesetzt zu sein? Alle Analysen basieren auf den Fragebogendaten für das Jahr 2021. Um zu analysieren welche Personen eine höhere Wahrscheinlichkeit haben mit einer bestimmten Problemlage konfrontiert zu sein, haben wir Random Forest Modelle angewandt. Diese ermöglichen eine Einschätzung der relativen Variablenwichtigkeit. Denjenigen Variablen, die einen größeren „Mean Decrease in Accuracy“ ermöglichen, d.h. die abhängige Variable besser erklären, wird eine höhere relative Variablenwichtigkeit zugesprochen. 
 \medskip 
