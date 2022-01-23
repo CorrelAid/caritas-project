@@ -34,7 +34,7 @@ ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungs
   theme(
     plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
     plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5),
-    legend.position = ,
+    legend.position = "bottom",
     legend.direction = "vertical"
   )
 

@@ -155,7 +155,7 @@ source("skripte/Grafiken_Repraesentativitaet_Bildung.R", encoding = "UTF-8")
 ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungsabschluss)) +
   geom_line(size = 0.9) +
   scale_x_continuous(breaks = seq(2010, 2020, 2)) +
-  scale_color_discrete(limits= c("Bis Realschulabschluss (ISCED 0 - 2)", "Abitur, Ausbildung, Berufsschule (ISCED 3 - 4)", 
+  scale_color_discrete(limits= c("bis Realschulabschluss (ISCED 0 - 2)", "Abitur, Ausbildung, Berufsschule (ISCED 3 - 4)", 
                                  "Meisterausbildung, Hochschulabschluss (ISCED 5 - 8)")) +
   geom_point(color = "black", size = 1.5) +
   labs(
@@ -165,8 +165,11 @@ ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungs
   ) +
   theme(
     plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
+    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5),
+    legend.position = "bottom",
+    legend.direction = "vertical"
   )
+
 ```
 
 Grundsätzlich haben die meisten Menschen in Deutschland einen Abschluss, wobei der Anteil der Menschen mit tertiärer Bildung (Meister, Studium) über die Jahre hinweg ansteigt. Es überrascht nicht, dass die niedrig Gebildete in der Beratung überrepräsentiert sind. Die Zahlen für 2020 sind provisorisch und mehrere breaks in series fanden statt, die Zahlen sind also nicht vollumfänglich über Zeit vergleichbar. Quelle: EU-LSF (edat_lfse_03).
