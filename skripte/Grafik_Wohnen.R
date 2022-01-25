@@ -1262,9 +1262,10 @@ problems_bb <- ts_problems_berlin2 %>%
   ggplot(aes(x = Jahr, y = Prozent, group = Problemlage, color = Problemlage)) +
   geom_line(size = 1.1) + 
   theme_linedraw() +
-  labs(title = "Problemlagen", subtitle = "Berlin | 2011-2021") +
-  theme(plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-        plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)) +
+  scale_x_discrete(breaks = seq(2011, 2021, 2)) +
+  labs(caption = substitute(paste('Abb. 10:', italic(" Wohnungsbedingte Problemlagen in Berlin")))) +
+  theme(plot.caption = element_text(hjust=0, size=rel(1))) +
   scale_color_brewer(palette = "Paired")
+
 #ggsave(problems_bb, file = "problems_bb.jpeg", unit = "cm", height = 12, width = 21, dpi = 500)
 

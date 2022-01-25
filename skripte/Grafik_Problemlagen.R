@@ -130,15 +130,13 @@ plot_problems <- ts_problems3 %>%
   filter(Problemlage != "Sonstiges") %>%
   ggplot(aes(x = Jahr, y = Prozent, group = Problemlage, color = Problemlage)) +
   geom_line(size = 1.1) + 
+  scale_x_discrete(breaks = seq(2010, 2021, 2)) +
   theme_linedraw() +
   labs(
-    title = "Problemlagen",
-    subtitle = "2010-2021"
+    caption = substitute(paste('Abb. 9:', italic(" Problemlagen im Zeitverlauf")))
   ) +
   scale_colour_manual(values=cbbPalette) +
-  theme(
-    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
-  )
+  theme(plot.caption = element_text(hjust=0, size=rel(1)))
 
 #ggsave(plot_problems, file = "plot_problems.jpeg", unit = "cm", height = 12, width = 21, dpi = 500)
+

@@ -22,18 +22,18 @@ COLORS <- c(Männlich.Alleinerziehend = "#145da0", Männlich.Alleinstehend = "#0
 LABELS <- c(Männlich.Alleinerziehend = "Alleinerziehende Männer", Männlich.Alleinstehend = "Alleinstehende Männer", Männlich.Ehe.Partnerschaft.Familie = "Männer in Partnerschaft/Familie",  
             Weiblich.Alleinerziehend = "Alleinerziehende Frauen", Weiblich.Alleinstehend = "Alleinstehende Frauen", Weiblich.Ehe.Partnerschaft.Familie = "Frauen in Partnerschaft/Familie")
 
+
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
 ggplot(ts_gender_family2, aes(x = Jahr, y = Prozent, group = Familienstand, color = Familienstand)) +
-  geom_line(size = 0.9) +
-  geom_point(color = "black", size = 1.5) +
-  scale_color_manual(values = COLORS, labels = LABELS) +
+  geom_line(size = 1.1) +
+  scale_x_discrete(breaks = seq(2013, 2021, 2)) +
+  theme_linedraw() + 
   labs(
-    title = "Familienstand & Geschlecht",
-    subtitle = "2013-2021"
+    caption = substitute(paste('Abb. 1: ', italic(' Familienstand und Geschlecht im Zeitverlauf')))
   ) +
-  theme(
-    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
-  )
+  theme(plot.caption = element_text(hjust=0, size=rel(1))) +
+  scale_color_manual(values = cbbPalette)
 ```
 
 
@@ -48,20 +48,16 @@ source("skripte/Grafiken_Repraesentativitaet_Familie.R", encoding = "UTF-8")
 cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 ggplot(Familienstand_Armutsgrenze, aes(x = TIME, y = Prozent, group = Familienstand, color = Familienstand)) +
-  geom_line(size = 0.9) +
+  geom_line(size = 1.1) +
   scale_x_continuous(breaks = seq(2010, 2020, 2)) +
+  theme_linedraw() +
   scale_color_discrete(limits= c("Alleinerziehend", "Zwei Erwachsene mit Kind(ern)", "Drei oder mehr Erwachsene mit Kind(ern)",
                                  "Alleinstehende Frauen", "Alleinstehende Männer", "Zwei Erwachsene", "Drei oder mehr Erwachsene")) +
   labs(
-    title = "Arme/armutsgefährdete Haushalte",
-    subtitle = "2010-2020",
-    x = "Jahr", y = "% der Bevölkerungsgruppe"
-  ) +
+    caption = substitute(paste('Abb. 2:', italic(' Familienstand für arme und armutsgefährdete Personen'))),
+    x = "Jahr", y = "Prozent") + 
   scale_colour_manual(values=cbbPalette) +
-  theme(
-    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
-  )
+  theme(plot.caption = element_text(hjust=0, size=rel(1))) 
 ```
 
 
@@ -71,23 +67,18 @@ Als Arm und Armutsgefährdet wurden hier Haushalte definiert, die weniger als 60
 ## Anteil Migrationshintergrund im Zeitverlauf
 
 ```{r Grafik Migrationshintergrund}
-COLORS <- c(
-  Hilfesuchender = "red",
-  Partner = "blue"
-)
+
 
 ggplot(ts_migration2, aes(x = Jahr, y = Prozent, group = Migrationshintergrund, color = Migrationshintergrund)) +
-  geom_line(size = 0.9) +
-  geom_point(color = "black", size = 2) +
-  scale_color_manual(values = COLORS) +
+  geom_line(size = 1.1) +
+  scale_x_continuous(breaks = seq(2010, 2021, 2)) +
+  theme_linedraw() +
   labs(
-    title = "Migrationshintergrund",
-    subtitle = "2010-2021"
+     caption = substitute(paste('Abb. 3:', italic(' Migrationshintergrund im Zeitverlauf')))
   ) +
-  theme(
-    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
-  )
+  theme(plot.caption = element_text(hjust=0, size=rel(1))) +
+  scale_color_brewer(palette = "Paired")
+
 ```
 
 
@@ -100,20 +91,17 @@ source("skripte/Grafiken_Repraesentativitaet_Herkunft.R", encoding = "UTF-8")
 
 ```{r Grafik Vergleich Herkunft, warning=FALSE}
 ggplot(Geburtsland, aes(x = TIME, y = Prozent, group = Geburtsland, color = Geburtsland)) +
-  geom_line(size = 0.9) +
-  geom_point(color = "black", size = 1.5) +
+  geom_line(size = 1.1) +
   scale_x_continuous(breaks = seq(2010, 2020, 2)) +
+  theme_linedraw()+
   scale_color_discrete(limits= c("Deutschland", "Ausland", 
                                  "EU", "Drittstaaten")) +
   labs(
-    title = "Geburtsland, 2010 - 2020",
-    subtitle = "EU und Drittstaaten 2017 - 2020", 
-    x = "Jahr", y = "% der Bevölkerungsgruppe"
-  ) +
-  theme(
-    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
-  )
+    caption = substitute(paste('Abb. 4:', italic(' Gesamtbevölkerung nach Geburtsland'))),
+    x = "Jahr", y = "Prozent") +
+  theme(plot.caption = element_text(hjust=0, size=rel(1))) + 
+  scale_color_brewer(palette = "Paired")
+  
 ```
 
 
@@ -121,25 +109,16 @@ Insgesamt lassen sich nur geringe Veränderungen über Zeit feststellen: Die Bef
 
 ## Bildungsabschluss im Zeitverlauf
 ```{r Grafik Bildung}
-COLORS <- c(
-  kein.Abschluss = "blue",
-  Schulabschluss = "green",
-  Studienabschluss = "orange",
-  abgeschlossene.Berufsausbildung = "red"
-)
 
 ggplot(ts_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, color = Bildungsabschluss)) +
-  geom_line(size = 0.9) +
-  geom_point(color = "black", size = 2) +
-  scale_color_manual(values = COLORS) +
+  geom_line(size = 1.1) +
+  scale_x_continuous(breaks = seq(2010, 2022, 2)) +
+  theme_linedraw() +
+  scale_color_brewer(palette = "Paired") +
   labs(
-    title = "Bildungsabschluss",
-    subtitle = "2010-2021"
+    caption = substitute(paste('Abb. 5:', italic(" Bildungsabschlüsse im Zeitverlauf")))
   ) +
-  theme(
-    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
-  )
+  theme(plot.caption = element_text(hjust=0, size=rel(1))) 
 
 ```
 
@@ -153,20 +132,19 @@ source("skripte/Grafiken_Repraesentativitaet_Bildung.R", encoding = "UTF-8")
 
 ```{r Grafik Vergleich Bildung}
 ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungsabschluss)) +
-  geom_line(size = 0.9) +
+  geom_line(size = 1.1) +
   scale_x_continuous(breaks = seq(2010, 2020, 2)) +
-  scale_color_discrete(limits= c("Bis Realschulabschluss (ISCED 0 - 2)", "Abitur, Ausbildung, Berufsschule (ISCED 3 - 4)", 
-                                 "Meisterausbildung, Hochschulabschluss (ISCED 5 - 8)")) +
+  theme_linedraw() +
   geom_point(color = "black", size = 1.5) +
   labs(
-    title = "Bildungsabschlüsse in Deutschland",
-    subtitle = "2010-2020",
-    x = "Jahr", y = "% der Bevölkerungsgruppe"
+    caption = substitute(paste('Abb. 6:', italic(" Bildungsabschlüsse in der Gesamtbevölkerung"))),
+    x = "Jahr", y = "Prozent"
   ) +
-  theme(
-    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
-  )
+  theme(plot.caption = element_text(hjust=0, size=rel(1)),
+        legend.position = "bottom", legend.direction = "vertical") +
+  scale_color_brewer(palette = "Paired")
+                     
+                     
 ```
 
 Grundsätzlich haben die meisten Menschen in Deutschland einen Abschluss, wobei der Anteil der Menschen mit tertiärer Bildung (Meister, Studium) über die Jahre hinweg ansteigt. Es überrascht nicht, dass die niedrig Gebildete in der Beratung überrepräsentiert sind. Die Zahlen für 2020 sind provisorisch und mehrere breaks in series fanden statt, die Zahlen sind also nicht vollumfänglich über Zeit vergleichbar. Quelle: EU-LSF (edat_lfse_03).
@@ -179,34 +157,28 @@ source("skripte/Grafik_Migration_Bildung.R", encoding = "UTF-8")
 
 ```{r Grafik Bildung ohne Migration}
 ggplot(ts_no_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, color = Bildungsabschluss)) +
-  geom_line(size = 0.9) +
-  geom_point(color = "#0099f9", size = 2) +
-  scale_color_manual(values = COLORS) +
+  geom_line(size = 1.1) +
+  scale_x_discrete(breaks = seq(2010, 2020, 2)) +
+  theme_linedraw() +
   labs(
-    title = "Bildung ohne Migrationshintergrund",
-    subtitle = "2013-2021"
+    caption = substitute(paste('Abb. 7:', italic(" Bildungstand für Personen ohne Migrationshintergrund")))
   ) +
-  theme(
-    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
-  )
+  theme(plot.caption = element_text(hjust=0, size=rel(1))) +
+  scale_color_brewer(palette = "Paired")
 
 ```
 
 ```{r Grafik Bildung mit Migration}
 ggplot(ts_yes_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, color = Bildungsabschluss)) +
-  geom_line(size = 0.9) +
-  geom_point(color = "#0099f9", size = 2) +
-  scale_color_manual(values = COLORS) +
+  geom_line(size = 1.1) +
+  scale_color_brewer(palette = "Paired") +
+  scale_x_discrete(breaks = seq(2010, 2020, 2)) +
+  theme_linedraw() +
   labs(
-    title = "Bildung mit Migrationshintergrund",
-    subtitle = "2013-2021"
+    caption = substitute(paste('Abb. 8:', italic(" Bildungstand für Personen mit Migrationshintergrund")))
   ) +
-  theme(
-    plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
-  )
-
+  theme(plot.caption = element_text(hjust=0, size=rel(1)))
+  
 ```
 
 # Problemlagen im Zeitverlauf
@@ -216,6 +188,9 @@ source("skripte/Grafik_Problemlagen.R", encoding = "UTF-8")
 
 ```{r Problemlagen Grafik, warning = FALSE, message = FALSE, fig.width = 9}
 plot_problems
+
+
+
 ```
 Sozialrechtliche Probleme und der Umgang mit Behörden steigen unter den Problemlagen im Zeitverlauf an, letzteres macht seit 2019 den größten Anteil aus. Im Jahr 2018 kamen besonders viele Menschen mit finanziellen Schwierigkeiten in die ASB (47%), danach nimmt der Anteil wieder ab. Der Anteil der Personen mit Krankheiten und psychischen Problemen sinkt dagegen im Laufe der Zeit, insbesondere seit 2017 und liegt seitdem konstant unter 30%.
 
@@ -254,7 +229,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ *)", abschluss = "Abschluss?", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit? (+ ***)", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung? (- **)", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (- ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (männlich + ***)", migrationshintergrund="Migrationshintergrund?"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 1: Wer ist arbeitslos?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 11: Wer ist arbeitslos?")
 ```
 
 Abbildung 1 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben arbeitslos zu sein. Dies sind Menschen mit weniger Kindern, Männer, kranke Menschen (Signifikanzniveau von jeweils 1%) sowie alleinstehende und alleinerziehende Menschen und Menschen ohne Behinderung (Signifikanzniveau von 5%). Interessanterweise haben Menschen ohne Abschluss und Menschen mit Migrationshintergrund keine signifikant höhere Wahrscheinlichkeit arbeitslos zu sein. Darüber hinaus lässt sich kein statistisch signifikanter Unterschied nach Alter feststellen.
@@ -281,7 +256,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ ***)", abschluss = "Abschluss? (- ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit? (+ **)", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund?"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 2: Wer bezieht seit \n mehr als 2 Jahren ALG II?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 12: Wer bezieht seit \n mehr als 2 Jahren ALG II?")
 ```
 
 Abbildung 2 analysiert, welche Personen seit mehr als zwei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie kranke Menschen (Signifikanzniveau von 5%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht und dem Vorliegen eines Migrationshintergrunds feststellen. 
@@ -308,7 +283,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ ***)", abschluss = "Abschluss? (- ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund?"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 3: Wer bezieht seit \n mehr als 3 Jahren ALG II?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 13: Wer bezieht seit \n mehr als 3 Jahren ALG II?")
 ```
 
 Abbildung 3 analysiert, welche Personen seit mehr als drei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht, Gesundheitszustand und dem Vorliegen eines Migrationshintergrunds feststellen. 
@@ -336,7 +311,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ ***)", abschluss = "Abschluss? (- ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit? (- **)", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung (+ **)?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund? (+ ***)"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 4: Wer hat \n Probleme mit den Behörden?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 14: Wer hat \n Probleme mit den Behörden?")
 ```
 
 Abbildung 4 analysiert, welche Personen mit höherer Wahrscheinlichkeit Probleme mit den Behörden haben. Wie man erwarten könnte, sind dies Menschen mit Migrationshintergrund, Menschen ohne Abschluss sowie Menschen mit mehr Kindern und alleinstehende und alleinerziehende Menschen (alle jeweils Signifikanzniveau von 1%). Darüber hinaus scheinen behinderte und überraschenderweise gesunde Menschen tendenziell eher Probleme mit den Behörden zu haben (Signifikanzniveau von 5%). Nach Alter und Geschlecht ergeben sich dagegen keine statistisch signifikante Unterschiede.
@@ -364,7 +339,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter (- ***)", allein = "Alleinstehend oder alleinerziehend? (+ ***)", abschluss = "Abschluss? (- **)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ *)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund?"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 5: Wer hat Schwierigkeiten \n das Jobcenter zu erreichen?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 15: Wer hat Schwierigkeiten \n das Jobcenter zu erreichen?")
 ```
 
 Abbildung 5 analysiert, welche Personen mit höherer Wahrscheinlichkeit Schwierigkeiten haben das Jobcenter zu erreichen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), jüngere Menschen, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie nach Gesundheitsstatus und Geschlecht.
@@ -391,7 +366,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter (- ***)", allein = "Alleinstehend oder alleinerziehend? (+ **)", abschluss = "Abschluss? (- ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung? (- *)", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ **)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (männlich + ***)", migrationshintergrund="Migrationshintergrund?"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 6: Wer hat \n Antragsstellungsschwierigkeiten mit dem Jobcenter?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 16: Wer hat \n Antragsstellungsschwierigkeiten mit dem Jobcenter?")
 ```
 
 Abbildung 6 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben auf Probleme mit dem Jobcenter bei der Antragsstellung zu stoßen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 5%), jüngere Menschen, Männer und Menschen ohne Abschluss (Signifikanzniveau von 1%) sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie gesunden und kranken Menschen.
@@ -418,7 +393,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter (- ***)", allein = "Alleinstehend oder alleinerziehend?", abschluss = "Abschluss? (+ ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit? (+ ***)", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ *)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (weiblich + ***)", migrationshintergrund="Migrationshintergrund? (+ **)"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 7: Wer hat Familienprobleme?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 17: Wer hat Familienprobleme?")
 ```
 
 Abbildung 7 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit Familienproblemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), kranke Menschen, jüngere Menschen und Frauen (Signifikanzniveau von jeweils 1%) sowie Menschen mit Migrationshintergrund und Menschen mit Abschluss (Signifikanzniveau von jeweils 5%). 
@@ -445,7 +420,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend?", abschluss = "Abschluss? (- *)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (männlich + ***)", migrationshintergrund="Migrationshintergrund? (- ***)"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 8: Wer hat Schulden?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 18: Wer hat Schulden?")
 ```
 
 Abbildung 8 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben Schulden aufzuweisen. Dies sind Männer und interessanterweise Menschen ohne Migrationshintergrund (jeweils Signifikanzniveau von 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 10%). Das Alter, der Familienstand und die Anzahl der Kinder scheinen dagegen wenig Einfluss auf die Schuldenlage zu haben. 
@@ -472,7 +447,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ **)", abschluss = "Abschluss? (+ **)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung? (+ **)", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund? (+ ***)"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 9: Für wen hat sich die finanzielle \n Lage infolge von Corona verschlechtert?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 19: Für wen hat sich die finanzielle \n Lage infolge von Corona verschlechtert?")
 ```
 
 Abbildung 9 analysiert, bei welchen Personen sich die finanzielle Situation infolge der Corona-Pandemie tendenziell verschlechtert hat. Dies sind Menschen mit Migrationshintergrund (1% Signifikanzniveau), alleinstehende und alleinerziehende Menschen und behinderte Menschen sowie interessanterweise Menschen mit Abschluss (jeweils 5% Signifikanzniveau). Dagegen scheint es keine signifikante Unterschiede nach Alter, Geschlecht und Krankheit zu geben.
@@ -499,7 +474,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ **)", abschluss = "Abschluss?", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (weiblich - **)", migrationshintergrund="Migrationshintergrund? (+ ***)"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 10: Wer hat \n sozialrechtliche Probleme?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 20: Wer hat \n sozialrechtliche Probleme?")
 ```
 
 Abbildung 10 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit sozialrechtlichen Problemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern, Menschen mit Migrationshintergrund (Signifikanzniveau von jeweils 1%), alleinstehende und alleinerziehende Menschen sowie Männer (Signifikanzniveau von jeweils 5%). Das Alter scheint hingegen keinen maßgeblichen Einfluss zu haben.
@@ -526,7 +501,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter (- ***)", allein = "Alleinstehend oder alleinerziehend? (+ **)", abschluss = "Abschluss?", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht (männlich + *)", migrationshintergrund="Migrationshintergrund? (+ *)"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 11: Wem wurden \n Sanktionen auferlegt?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 21: Wem wurden \n Sanktionen auferlegt?")
 ```
 
 Abbildung 11 analysiert, wer eine höhere Wahrscheinlichkeit hat nach Strafgesetzbuch 2 mit Sanktionen belegt worden zu sein. Dies ist der Fall für jüngere Menschen (Signifikanzniveau von 1%), alleinstehende und alleinerziehende Personen (Signifikanzniveau von 5%), Menschen mit Migrationshintergrund und Männer (jeweils Signifikanzniveau von 10%).
@@ -559,7 +534,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend?", abschluss = "Abschluss? (- ***)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit?", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund? (+ ***)"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 12: Wer hat Sprachprobleme?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 22: Wer hat Sprachprobleme?")
 ```
 
 Abbildung 12 analysiert, wer eine höhere Wahrscheinlichkeit hat, mit Sprachproblemen konfrontiert zu sein. Dass dies Menschen mit Migrationshintergrund und Menschen ohne Abschluss sind (Signifikanzniveau von 1% jeweils), überrascht wenig.
@@ -586,7 +561,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter (+ ***)", allein = "Alleinstehend oder alleinerziehend?", abschluss = "Abschluss?", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II?", krankheit = "Krankheit? (+ ***)", online_beratung = "Art der Beratung: online / telefonisch / persönlich", behinderung="Behinderung? (+ ***)", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung infolge von Corona?", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund?"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 13: Wer ist pflegebedürftig?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 23: Wer ist pflegebedürftig?")
 ```
 
 Abbildung 13 analysiert, welche Personen mit höherer Wahrscheinlichkeit pflegebedürftig sind. Wenig überraschend sind ältere, kranke und behinderte Menschen eher pflegebedürftig (Signifikanzniveau von 1%).
@@ -613,7 +588,7 @@ imp <- imp %>%
     mutate(vars = recode(vars, alter = "Alter", allein = "Alleinstehend oder alleinerziehend? (+ ***)", abschluss = "Abschluss? (- **)", schulabschluss = "Bildungsgrad: Schulabschluss", ausbildung_oder_studium = "Bildungsgrad: Ausbildung oder Studium", alg2="Bezieher von ALG II? (+ ***)", krankheit = "Krankheit? (+ ***)", online_beratung = "Art der Beratung (online - ***)", behinderung="Behinderung?", jobcenter_schwierig = "Schwierigkeiten mit Jobcenter?", kinder = "Anzahl Kinder (+ ***)", corona_wohnschulden = "Wohnschulden bedingt durch Corona?", corona_fin_schlechter = "Finanzielle Verschlechterung durch Corona? (- ***)", kindergeld="Kindergeldempfänger*in?", weiblich="Geschlecht", migrationshintergrund="Migrationshintergrund? (- ***)"))
 
 dotchart(imp$MeanDecreaseAccuracy, imp$vars, 
-         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 14: \n Wer erhält eine Finanzhilfe?")
+         xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 24: \n Wer erhält eine Finanzhilfe?")
 ```
 
 Abbildung 14 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben eine (einmalige) Finanzhilfe infolge der ASB zu erhalten. Menschen mit mehr Kindern, alleinstehende Menschen, kranke Menschen sowie Menschen, die ALG II beziehen, haben eine höhere Wahrscheinlichkeit eine Finanzhilfe zu erhalten. Menschen, deren Beratung online stattfand, hatten eine statistisch signifikant niedrigere Wahrscheinlichkeit eine Finanzhilfe zu erhalten. Selbiges gilt für Menschen mit Migrationshintergrund und Menschen mit Abschluss. Das Geschlecht und das Alter scheinen dagegen keinen großen Einfluss auf die Wahrscheinlichkeit eine Finanzhilfe zu erhalten zu haben.
