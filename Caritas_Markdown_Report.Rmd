@@ -232,7 +232,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 11: Wer ist arbeitslos?")
 ```
 
-Abbildung 1 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben arbeitslos zu sein. Dies sind Menschen mit weniger Kindern, Männer, kranke Menschen (Signifikanzniveau von jeweils 1%) sowie alleinstehende und alleinerziehende Menschen und Menschen ohne Behinderung (Signifikanzniveau von 5%). Interessanterweise haben Menschen ohne Abschluss und Menschen mit Migrationshintergrund keine signifikant höhere Wahrscheinlichkeit arbeitslos zu sein. Darüber hinaus lässt sich kein statistisch signifikanter Unterschied nach Alter feststellen.
+Abbildung 11 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben arbeitslos zu sein. Dies sind Menschen mit weniger Kindern, Männer, kranke Menschen (Signifikanzniveau von jeweils 1%) sowie alleinstehende und alleinerziehende Menschen und Menschen ohne Behinderung (Signifikanzniveau von 5%). Interessanterweise haben Menschen ohne Abschluss und Menschen mit Migrationshintergrund keine signifikant höhere Wahrscheinlichkeit arbeitslos zu sein. Darüber hinaus lässt sich kein statistisch signifikanter Unterschied nach Alter feststellen.
 
 
 ```{r RF ALG2, include = FALSE}
@@ -259,7 +259,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 12: Wer bezieht seit \n mehr als 2 Jahren ALG II?")
 ```
 
-Abbildung 2 analysiert, welche Personen seit mehr als zwei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie kranke Menschen (Signifikanzniveau von 5%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht und dem Vorliegen eines Migrationshintergrunds feststellen. 
+Abbildung 12 analysiert, welche Personen seit mehr als zwei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie kranke Menschen (Signifikanzniveau von 5%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht und dem Vorliegen eines Migrationshintergrunds feststellen. 
 
 
 ```{r RF ALG2 3J, include = FALSE}
@@ -286,7 +286,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 13: Wer bezieht seit \n mehr als 3 Jahren ALG II?")
 ```
 
-Abbildung 3 analysiert, welche Personen seit mehr als drei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht, Gesundheitszustand und dem Vorliegen eines Migrationshintergrunds feststellen. 
+Abbildung 13 analysiert, welche Personen seit mehr als drei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht, Gesundheitszustand und dem Vorliegen eines Migrationshintergrunds feststellen. 
 
 
 
@@ -314,7 +314,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 14: Wer hat \n Probleme mit den Behörden?")
 ```
 
-Abbildung 4 analysiert, welche Personen mit höherer Wahrscheinlichkeit Probleme mit den Behörden haben. Wie man erwarten könnte, sind dies Menschen mit Migrationshintergrund, Menschen ohne Abschluss sowie Menschen mit mehr Kindern und alleinstehende und alleinerziehende Menschen (alle jeweils Signifikanzniveau von 1%). Darüber hinaus scheinen behinderte und überraschenderweise gesunde Menschen tendenziell eher Probleme mit den Behörden zu haben (Signifikanzniveau von 5%). Nach Alter und Geschlecht ergeben sich dagegen keine statistisch signifikante Unterschiede.
+Abbildung 14 analysiert, welche Personen mit höherer Wahrscheinlichkeit Probleme mit den Behörden haben. Wie man erwarten könnte, sind dies Menschen mit Migrationshintergrund, Menschen ohne Abschluss sowie Menschen mit mehr Kindern und alleinstehende und alleinerziehende Menschen (alle jeweils Signifikanzniveau von 1%). Darüber hinaus scheinen behinderte und überraschenderweise gesunde Menschen tendenziell eher Probleme mit den Behörden zu haben (Signifikanzniveau von 5%). Nach Alter und Geschlecht ergeben sich dagegen keine statistisch signifikante Unterschiede.
 
 
 
@@ -342,7 +342,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 15: Wer hat Schwierigkeiten \n das Jobcenter zu erreichen?")
 ```
 
-Abbildung 5 analysiert, welche Personen mit höherer Wahrscheinlichkeit Schwierigkeiten haben das Jobcenter zu erreichen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), jüngere Menschen, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie nach Gesundheitsstatus und Geschlecht.
+Abbildung 15 analysiert, welche Personen mit höherer Wahrscheinlichkeit Schwierigkeiten haben das Jobcenter zu erreichen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), jüngere Menschen, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie nach Gesundheitsstatus und Geschlecht.
 
 
 ```{r RF Antrag JC, include = FALSE}
@@ -369,7 +369,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 16: Wer hat \n Antragsstellungsschwierigkeiten mit dem Jobcenter?")
 ```
 
-Abbildung 6 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben auf Probleme mit dem Jobcenter bei der Antragsstellung zu stoßen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 5%), jüngere Menschen, Männer und Menschen ohne Abschluss (Signifikanzniveau von 1%) sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie gesunden und kranken Menschen.
+Abbildung 16 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben auf Probleme mit dem Jobcenter bei der Antragsstellung zu stoßen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 5%), jüngere Menschen, Männer und Menschen ohne Abschluss (Signifikanzniveau von 1%) sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie gesunden und kranken Menschen.
 
 
 ```{r RF Familienprobleme, include = FALSE}
@@ -396,7 +396,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 17: Wer hat Familienprobleme?")
 ```
 
-Abbildung 7 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit Familienproblemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), kranke Menschen, jüngere Menschen und Frauen (Signifikanzniveau von jeweils 1%) sowie Menschen mit Migrationshintergrund und Menschen mit Abschluss (Signifikanzniveau von jeweils 5%). 
+Abbildung 17 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit Familienproblemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), kranke Menschen, jüngere Menschen und Frauen (Signifikanzniveau von jeweils 1%) sowie Menschen mit Migrationshintergrund und Menschen mit Abschluss (Signifikanzniveau von jeweils 5%). 
 
 
 ```{r RF Schulden, include = FALSE}
@@ -423,7 +423,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 18: Wer hat Schulden?")
 ```
 
-Abbildung 8 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben Schulden aufzuweisen. Dies sind Männer und interessanterweise Menschen ohne Migrationshintergrund (jeweils Signifikanzniveau von 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 10%). Das Alter, der Familienstand und die Anzahl der Kinder scheinen dagegen wenig Einfluss auf die Schuldenlage zu haben. 
+Abbildung 18 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben Schulden aufzuweisen. Dies sind Männer und interessanterweise Menschen ohne Migrationshintergrund (jeweils Signifikanzniveau von 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 10%). Das Alter, der Familienstand und die Anzahl der Kinder scheinen dagegen wenig Einfluss auf die Schuldenlage zu haben. 
 
 
 ```{r RF Finanzen, include = FALSE}
@@ -450,7 +450,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 19: Für wen hat sich die finanzielle \n Lage infolge von Corona verschlechtert?")
 ```
 
-Abbildung 9 analysiert, bei welchen Personen sich die finanzielle Situation infolge der Corona-Pandemie tendenziell verschlechtert hat. Dies sind Menschen mit Migrationshintergrund (1% Signifikanzniveau), alleinstehende und alleinerziehende Menschen und behinderte Menschen sowie interessanterweise Menschen mit Abschluss (jeweils 5% Signifikanzniveau). Dagegen scheint es keine signifikante Unterschiede nach Alter, Geschlecht und Krankheit zu geben.
+Abbildung 19 analysiert, bei welchen Personen sich die finanzielle Situation infolge der Corona-Pandemie tendenziell verschlechtert hat. Dies sind Menschen mit Migrationshintergrund (1% Signifikanzniveau), alleinstehende und alleinerziehende Menschen und behinderte Menschen sowie interessanterweise Menschen mit Abschluss (jeweils 5% Signifikanzniveau). Dagegen scheint es keine signifikante Unterschiede nach Alter, Geschlecht und Krankheit zu geben.
 
 
 ```{r RF Sozialrechtlich, include = FALSE}
@@ -477,7 +477,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 20: Wer hat \n sozialrechtliche Probleme?")
 ```
 
-Abbildung 10 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit sozialrechtlichen Problemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern, Menschen mit Migrationshintergrund (Signifikanzniveau von jeweils 1%), alleinstehende und alleinerziehende Menschen sowie Männer (Signifikanzniveau von jeweils 5%). Das Alter scheint hingegen keinen maßgeblichen Einfluss zu haben.
+Abbildung 20 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit sozialrechtlichen Problemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern, Menschen mit Migrationshintergrund (Signifikanzniveau von jeweils 1%), alleinstehende und alleinerziehende Menschen sowie Männer (Signifikanzniveau von jeweils 5%). Das Alter scheint hingegen keinen maßgeblichen Einfluss zu haben.
 
 
 ```{r RF Sanktionen, include = FALSE}
@@ -504,7 +504,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 21: Wem wurden \n Sanktionen auferlegt?")
 ```
 
-Abbildung 11 analysiert, wer eine höhere Wahrscheinlichkeit hat nach Strafgesetzbuch 2 mit Sanktionen belegt worden zu sein. Dies ist der Fall für jüngere Menschen (Signifikanzniveau von 1%), alleinstehende und alleinerziehende Personen (Signifikanzniveau von 5%), Menschen mit Migrationshintergrund und Männer (jeweils Signifikanzniveau von 10%).
+Abbildung 21 analysiert, wer eine höhere Wahrscheinlichkeit hat nach Strafgesetzbuch 2 mit Sanktionen belegt worden zu sein. Dies ist der Fall für jüngere Menschen (Signifikanzniveau von 1%), alleinstehende und alleinerziehende Personen (Signifikanzniveau von 5%), Menschen mit Migrationshintergrund und Männer (jeweils Signifikanzniveau von 10%).
 
 
 \newpage 
@@ -537,7 +537,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 22: Wer hat Sprachprobleme?")
 ```
 
-Abbildung 12 analysiert, wer eine höhere Wahrscheinlichkeit hat, mit Sprachproblemen konfrontiert zu sein. Dass dies Menschen mit Migrationshintergrund und Menschen ohne Abschluss sind (Signifikanzniveau von 1% jeweils), überrascht wenig.
+Abbildung 22 analysiert, wer eine höhere Wahrscheinlichkeit hat, mit Sprachproblemen konfrontiert zu sein. Dass dies Menschen mit Migrationshintergrund und Menschen ohne Abschluss sind (Signifikanzniveau von 1% jeweils), überrascht wenig.
 
 
 ```{r RF Pflege, include = FALSE}
@@ -564,7 +564,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 23: Wer ist pflegebedürftig?")
 ```
 
-Abbildung 13 analysiert, welche Personen mit höherer Wahrscheinlichkeit pflegebedürftig sind. Wenig überraschend sind ältere, kranke und behinderte Menschen eher pflegebedürftig (Signifikanzniveau von 1%).
+Abbildung 23 analysiert, welche Personen mit höherer Wahrscheinlichkeit pflegebedürftig sind. Wenig überraschend sind ältere, kranke und behinderte Menschen eher pflegebedürftig (Signifikanzniveau von 1%).
 
 
 ```{r RF Finanzhilfe, include = FALSE}
@@ -591,6 +591,6 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 24: \n Wer erhält eine Finanzhilfe?")
 ```
 
-Abbildung 14 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben eine (einmalige) Finanzhilfe infolge der ASB zu erhalten. Menschen mit mehr Kindern, alleinstehende Menschen, kranke Menschen sowie Menschen, die ALG II beziehen, haben eine höhere Wahrscheinlichkeit eine Finanzhilfe zu erhalten. Menschen, deren Beratung online stattfand, hatten eine statistisch signifikant niedrigere Wahrscheinlichkeit eine Finanzhilfe zu erhalten. Selbiges gilt für Menschen mit Migrationshintergrund und Menschen mit Abschluss. Das Geschlecht und das Alter scheinen dagegen keinen großen Einfluss auf die Wahrscheinlichkeit eine Finanzhilfe zu erhalten zu haben.
+Abbildung 24 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben eine (einmalige) Finanzhilfe infolge der ASB zu erhalten. Menschen mit mehr Kindern, alleinstehende Menschen, kranke Menschen sowie Menschen, die ALG II beziehen, haben eine höhere Wahrscheinlichkeit eine Finanzhilfe zu erhalten. Menschen, deren Beratung online stattfand, hatten eine statistisch signifikant niedrigere Wahrscheinlichkeit eine Finanzhilfe zu erhalten. Selbiges gilt für Menschen mit Migrationshintergrund und Menschen mit Abschluss. Das Geschlecht und das Alter scheinen dagegen keinen großen Einfluss auf die Wahrscheinlichkeit eine Finanzhilfe zu erhalten zu haben.
 
 
