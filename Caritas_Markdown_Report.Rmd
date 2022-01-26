@@ -1,9 +1,14 @@
 ---
-title: "CorrelAid Bericht - Caritas"
-author: "Ann-Kristin Vester, Christoph Wolf, Dylan Thurgood, Katharina Potinius und Sven Ehmes"
-date: "26 01 2022"
+title: "CorrelAid: Bericht zur Auswertung der Allgemeinen Sozialberatung der Caritas"
+author: "Ann-Kristin Vester, Christoph Wolf, Dylan Thurgood, Katharina Potinius, Sven Ehmes"
+date: "31. Januar 2022"
 lang: de-DE
 output: pdf_document
+header-includes:
+  - \usepackage{titling}
+  - \pretitle{\begin{center}
+    \includegraphics[width=4in,height=4in]{images/Correlaid.png}\LARGE\\}
+  - \posttitle{\end{center}}
 ---
 
 \newpage 
@@ -47,7 +52,7 @@ ggplot(ts_gender_family2, aes(x = Jahr, y = Prozent, group = Familienstand, colo
 Betrachtet man das Geschlecht kombiniert mit den jeweiligen Familienständen der Hilfesuchenden, so ist eindeutig zu erkennen, dass die mit Abstand kleinste Gruppe jene der alleinerziehenden Männer ist (konstant über die letzten Jahre). Auch viele andere Kombinationen scheinen über den Zeitverlauf recht konstant geblieben zu sein; nur der relative Anteil der Gruppe der Männer in einer Partnerschaft/Ehe/Familie schwankt über die Jahre zwischen 15% und 20%. Außerdem ist ein leichter negativer Trend im relativen Anteil der Gruppe der alleinerziehenden Frauen zu erkennen.
 
 ### Vergleich mit Familienstand in der Bevölkerung
-```{r Vergleich Familie SetUp, include=FALSE}
+```{r Vergleich Familie SetUp, include=FALSE, warning=FALSE, message=FALSE}
 source("skripte/Grafiken_Repraesentativitaet_Familie.R", encoding = "UTF-8")
 ```
 
@@ -92,11 +97,11 @@ ggplot(ts_migration2, aes(x = Jahr, y = Prozent, group = Migrationshintergrund, 
 Der Anteil an Menschen mit Migrationshintergrund steigt im Laufe der Zeit, insbesondere von 2015 zu 2016 ist ein deutlicher Anstieg erkennbar.
 
 ### Vergleich mit Herkunft in der Bevölkerung
-```{r Vergleich Herkunft SetUp, include=FALSE, warning=FALSE}
+```{r Vergleich Herkunft SetUp, include=FALSE, warning=FALSE, message=FALSE}
 source("skripte/Grafiken_Repraesentativitaet_Herkunft.R", encoding = "UTF-8")
 ```
 
-```{r Grafik Vergleich Herkunft, warning=FALSE}
+```{r Grafik Vergleich Herkunft, warning=FALSE, message=FALSE}
 ggplot(Geburtsland, aes(x = TIME, y = Prozent, group = Geburtsland, color = Geburtsland)) +
   geom_line(size = 1.1) +
   scale_x_continuous(breaks = seq(2010, 2020, 2)) +
@@ -190,6 +195,7 @@ ggplot(ts_yes_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsa
   
 ```
 \newpage
+
 # Problemlagen der Hilfesuchenden
 ## Problemlagen im Zeitverlauf
 ```{r Problemlagen Setup, include=FALSE}
