@@ -1,16 +1,23 @@
 ---
-title: "Correlaid Caritas Report"
-author: "Correlaid Team"
-date: "21 01 2022"
+title: "CorrelAid Bericht - Caritas"
+author: "Ann-Kristin Vester, Christoph Wolf, Dylan Thurgood, Katharina Potinius und Sven Ehmes"
+date: "26 01 2022"
+lang: de-DE
 output: pdf_document
 ---
+
+\newpage 
+\tableofcontents
+\newpage
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 source("skripte/Caritas_Data_Cleaning_2010_to_2021.R", encoding = "UTF-8")
 ```
 
-# Familienstand & Geschlecht
+# Demographische Charakteristika der Hilfesuchenden
+
+## Familienstand & Geschlecht im Zeitverlauf
 ```{r Setup Familienstand, include=FALSE}
 source("skripte/GenderFamily_Chart_Markdown.R", encoding = "UTF-8")
 ```
@@ -39,7 +46,7 @@ ggplot(ts_gender_family2, aes(x = Jahr, y = Prozent, group = Familienstand, colo
 
 Betrachtet man das Geschlecht kombiniert mit den jeweiligen Familienständen der Hilfesuchenden, so ist eindeutig zu erkennen, dass die mit Abstand kleinste Gruppe jene der alleinerziehenden Männer ist (konstant über die letzten Jahre). Auch viele andere Kombinationen scheinen über den Zeitverlauf recht konstant geblieben zu sein; nur der relative Anteil der Gruppe der Männer in einer Partnerschaft/Ehe/Familie schwankt über die Jahre zwischen 15% und 20%. Außerdem ist ein leichter negativer Trend im relativen Anteil der Gruppe der alleinerziehenden Frauen zu erkennen.
 
-## Vergleich mit Familienstand in der Bevölkerung
+### Vergleich mit Familienstand in der Bevölkerung
 ```{r Vergleich Familie SetUp, include=FALSE}
 source("skripte/Grafiken_Repraesentativitaet_Familie.R", encoding = "UTF-8")
 ```
@@ -64,7 +71,7 @@ ggplot(Familienstand_Armutsgrenze, aes(x = TIME, y = Prozent, group = Familienst
 Als Arm und Armutsgefährdet wurden hier Haushalte definiert, die weniger als 60% des nationalen Medianeinkommens zur Verfügung haben. Es handelt sich dabei um die Messung relativer Armut und die gewählte Schwelle kann als willkürlich angesehen werden. Während eine Aufschlüsselung nach Geschlecht mithilfe der Daten nicht möglich war, lässt sich erkennen, dass ein überproportional hoher Anteil Alleinerziehender in die Schuldnerberatung kommt (ca. 20% der Hilfesuchenenden in der Beratung im Vergleich zu etwa 12% in der Bevölkerung). Allerdings sind die Differenzen für keine Gruppe auffällig groß. Anzumerken ist, dass 2020 ein break in series erfolgt ist, die Zahlen also nicht vollkommen vergleichbar mit den vorherigen Jahren sind. Mit Blick darauf sollten vor allem die großen Veränderungen zu 2019 vorsichtig intepretiert werden, da sie gegebenenfalls auf diesen break in series und nicht Veränderungen im Einkommensniveau oder Familienstruktur der Haushalte zurückzuführen sind. Quelle: EU-SILC (ilc_lvps02).
 
 
-## Anteil Migrationshintergrund im Zeitverlauf
+## Anteil mit Migrationshintergrund im Zeitverlauf
 
 ```{r Grafik Migrationshintergrund}
 
@@ -84,7 +91,7 @@ ggplot(ts_migration2, aes(x = Jahr, y = Prozent, group = Migrationshintergrund, 
 
 Der Anteil an Menschen mit Migrationshintergrund steigt im Laufe der Zeit, insbesondere von 2015 zu 2016 ist ein deutlicher Anstieg erkennbar.
 
-## Vergleich mit Herkunft in der Bevölkerung
+### Vergleich mit Herkunft in der Bevölkerung
 ```{r Vergleich Herkunft SetUp, include=FALSE, warning=FALSE}
 source("skripte/Grafiken_Repraesentativitaet_Herkunft.R", encoding = "UTF-8")
 ```
@@ -107,6 +114,9 @@ ggplot(Geburtsland, aes(x = TIME, y = Prozent, group = Geburtsland, color = Gebu
 
 Insgesamt lassen sich nur geringe Veränderungen über Zeit feststellen: Die Befragten, die in Deutschland geboren wurden, nehmen nur marginal ab. Proportional nimmt der Anteil der im Ausland geborenen zu, mit einem Höchststand von circa 20% in 2019. Von diesen kommen etwas mehr aus EU-Drittstaaten (also Ländern, die mit Stand 2020 nicht EU-Mitglied sind) als aus der EU (Stand 2020, also ohne UK). Anzumerken ist, dass die Daten für 2020 nur Provisorisch sind.Quelle: EU-LFS (lfsa_pgacws).
 
+\newpage 
+
+# Bildungsgrad der Hilfesuchenden
 ## Bildungsabschluss im Zeitverlauf
 ```{r Grafik Bildung}
 
@@ -125,7 +135,7 @@ ggplot(ts_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, colo
 
 Der Anteil der Personen mit abgeschlossener Berufsausbildung liegt dauerhaft über 35 Prozent und macht damit die größte Gruppe aus. Im Zeitverlauf nimmt der Anteil allerdings ab, insbesondere seit 2019. Der Anteil der Personen ohne Bildungsabschluss steigt leicht seit 2013 und bildet aktuell die zweitgrößte Gruppe.
 
-## Vergleich mit Bildung der Bevölkerung
+### Vergleich mit Bildung der Bevölkerung
 ```{r Vergleich Bildung SetUp, include=FALSE}
 source("skripte/Grafiken_Repraesentativitaet_Bildung.R", encoding = "UTF-8")
 ```
@@ -149,7 +159,7 @@ ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungs
 Grundsätzlich haben die meisten Menschen in Deutschland einen Abschluss, wobei der Anteil der Menschen mit tertiärer Bildung (Meister, Studium) über die Jahre hinweg ansteigt. Es überrascht nicht, dass die niedrig Gebildete in der Beratung überrepräsentiert sind. Die Zahlen für 2020 sind provisorisch und mehrere breaks in series fanden statt, die Zahlen sind also nicht vollumfänglich über Zeit vergleichbar. Quelle: EU-LSF (edat_lfse_03).
 
 
-## Bildung mit und ohne Migrationshintergrund
+## Bildungsabschluss mit und ohne Migrationshintergrund
 ```{r Migration + Bildung, include=FALSE}
 source("skripte/Grafik_Migration_Bildung.R", encoding = "UTF-8")
 ```
@@ -180,7 +190,8 @@ ggplot(ts_yes_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsa
   
 ```
 \newpage
-# Problemlagen im Zeitverlauf
+# Problemlagen der Hilfesuchenden
+## Problemlagen im Zeitverlauf
 ```{r Problemlagen Setup, include=FALSE}
 source("skripte/Grafik_Problemlagen.R", encoding = "UTF-8")
 ```
@@ -193,7 +204,7 @@ plot_problems
 ```
 Sozialrechtliche Probleme und der Umgang mit Behörden steigen unter den Problemlagen im Zeitverlauf an, letzteres macht seit 2019 den größten Anteil aus. Im Jahr 2018 kamen besonders viele Menschen mit finanziellen Schwierigkeiten in die ASB (47%), danach nimmt der Anteil wieder ab. Der Anteil der Personen mit Krankheiten und psychischen Problemen sinkt dagegen im Laufe der Zeit, insbesondere seit 2017 und liegt seitdem konstant unter 30%.
 
-# Analyse der wohnungsbedingter Problemlagen für Berlin
+## Analyse der wohnungsbedingten Problemlagen für Berlin
 ```{r Wohnen Setup, include=FALSE, message=FALSE, warning=FALSE}
 source("skripte/Grafik_Wohnen.R", encoding = "UTF-8")
 ```
@@ -204,7 +215,7 @@ problems_bb
 Der massive Anstieg von Miet- und Energiepreisen bildet sich nur zu einem gewissen Grad an der Entwicklung der Problemlagen ab, weshalb Menschen die Sozialberatung der Caritas aufsuchen. In besonders betroffenen Regionen wie etwa Berlin zeigt sich zwar in den letzten zehn Jahren - mit sichtbaren Schwankungen - ein markanter Anstieg an wohnungsbedingter Probleme, die drängendsten Probleme, weswegen sich Personen an die Sozialberatung wenden, liegen jedoch auch in diesen Regionen (in Einklang mit dem allgemeinen bundesweiten Trend) mit über 50% beim Umgang mit Behörden und im Bereich des Sozialrechts.
 
 \newpage
-# Statistische Analysen
+## Statistische Analysen
 Die nachfolgenden Graphiken dienen der Auswertung der Fragestellung: Welche Faktoren haben maßgeblichen Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage ausgesetzt zu sein? Alle Analysen basieren auf den Fragebogendaten für das Jahr 2021. Um zu analysieren welche Personen eine höhere Wahrscheinlichkeit haben mit einer bestimmten Problemlage konfrontiert zu sein, haben wir Random Forest Modelle angewandt. Diese ermöglichen eine Einschätzung der relativen Variablenwichtigkeit. Denjenigen Variablen, die einen größeren „Mean Decrease in Accuracy“ ermöglichen, d.h. die abhängige Variable besser erklären, wird eine höhere relative Variablenwichtigkeit zugesprochen. 
 \medskip 
 \newline 
@@ -212,6 +223,7 @@ Die nachfolgenden Graphiken dienen der Auswertung der Fragestellung: Welche Fakt
 Das Random Forest Modell sagt jedoch nichts über das Vorzeichen der Effekte aus. Ein Beispiel: Nehmen wir an, dass laut des Random Forest Modells das Alter der wichtigste Faktor ist hinsichtlich des Vorliegens einer bestimmten Problemlage. Trotz dieser Erkenntnis wissen wir nicht, ob jüngere oder ältere Menschen eher von dieser Problemlage betroffen sind. Daher ziehen wir zudem ein logistisches Regressionsmodell hinzu. Das Vorzeichen der resultierenden Koeffizienten gibt die Richtung des Effektes an. Wir haben dieses Vorzeichen in den Graphiken in Klammern hinter der entsprechenden Variable notiert, sofern der Effekt statistisch signifikant war. In diesen Fällen haben wir ebenfalls das Signifikanzniveau notiert. * bedeutet ein Signifikanzniveau von 10%, ** bedeutet ein Signifikanzniveau von 5% und *** bedeutet ein Signifikanzniveau von 1%. Je mehr Sterne, desto signifikanter ist der Effekt. Hat ein Effekt beispielsweise ein Signifikanzniveau von 10%, bedeutet dies, dass wir mit 90%iger Sicherheit davon ausgehen können, dass der Faktor einen signifikanten Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage hat, während wir dies bei einem Signifikanzniveau von 1% mit 99%iger Sicherheit schlussfolgern können. 
 
 \newpage
+\addcontentsline{toc}{subsubsection}{Arbeitslosigkeit}
 
 ```{r Setup RF, include=FALSE, warning=FALSE, message=FALSE}
 source("skripte/SetUp_Statistische_Analysen.R", encoding = "UTF-8")
@@ -234,6 +246,8 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 
 Abbildung 11 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben arbeitslos zu sein. Dies sind Menschen mit weniger Kindern, Männer, kranke Menschen (Signifikanzniveau von jeweils 1%) sowie alleinstehende und alleinerziehende Menschen und Menschen ohne Behinderung (Signifikanzniveau von 5%). Interessanterweise haben Menschen ohne Abschluss und Menschen mit Migrationshintergrund keine signifikant höhere Wahrscheinlichkeit arbeitslos zu sein. Darüber hinaus lässt sich kein statistisch signifikanter Unterschied nach Alter feststellen.
 
+\newpage 
+\addcontentsline{toc}{subsubsection}{ALG II seit mehr als 2 Jahren}
 
 ```{r RF ALG2, include = FALSE}
 # Analyse mit Random Forest: Wer bezieht seit über 2 Jahren ALG II?
@@ -261,6 +275,8 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 
 Abbildung 12 analysiert, welche Personen seit mehr als zwei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie kranke Menschen (Signifikanzniveau von 5%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht und dem Vorliegen eines Migrationshintergrunds feststellen. 
 
+\newpage 
+\addcontentsline{toc}{subsubsection}{ALG II seit mehr als 3 Jahren}
 
 ```{r RF ALG2 3J, include = FALSE}
 # Analyse mit Random Forest: Wer bezieht seit über 3 Jahren ALG II?
@@ -289,6 +305,8 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 Abbildung 13 analysiert, welche Personen seit mehr als drei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht, Gesundheitszustand und dem Vorliegen eines Migrationshintergrunds feststellen. 
 
 
+\newpage 
+\addcontentsline{toc}{subsubsection}{Schwierigkeiten mit Behörden}
 
 ```{r LogReg Behörde, include = FALSE}
 # Analyse mit Random Forest: Wer hat Probleme mit den Behörden?
@@ -317,6 +335,8 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 Abbildung 14 analysiert, welche Personen mit höherer Wahrscheinlichkeit Probleme mit den Behörden haben. Wie man erwarten könnte, sind dies Menschen mit Migrationshintergrund, Menschen ohne Abschluss sowie Menschen mit mehr Kindern und alleinstehende und alleinerziehende Menschen (alle jeweils Signifikanzniveau von 1%). Darüber hinaus scheinen behinderte und überraschenderweise gesunde Menschen tendenziell eher Probleme mit den Behörden zu haben (Signifikanzniveau von 5%). Nach Alter und Geschlecht ergeben sich dagegen keine statistisch signifikante Unterschiede.
 
 
+\newpage 
+\addcontentsline{toc}{subsubsection}{Schwierigkeiten mit Jobcenter}
 
 ```{r RF Erreichbarkeit Jobcenter, include = FALSE}
 # Analyse mit Random Forest: Wer hat Schwierigkeiten das Jobcenter zu erreichen?
@@ -345,6 +365,9 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 Abbildung 15 analysiert, welche Personen mit höherer Wahrscheinlichkeit Schwierigkeiten haben das Jobcenter zu erreichen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), jüngere Menschen, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie nach Gesundheitsstatus und Geschlecht.
 
 
+\newpage 
+\addcontentsline{toc}{subsubsection}{Schwierigkeiten mit Antragsstellung}
+
 ```{r RF Antrag JC, include = FALSE}
 # Analyse mit Random Forest: Wer hat Antragsstellungsschwierigkeiten mit dem Jobcenter?
 fit_RF <- randomForest(as.factor(jobcenterantrag_schwierig) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
@@ -371,6 +394,9 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 
 Abbildung 16 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben auf Probleme mit dem Jobcenter bei der Antragsstellung zu stoßen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 5%), jüngere Menschen, Männer und Menschen ohne Abschluss (Signifikanzniveau von 1%) sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie gesunden und kranken Menschen.
 
+
+\newpage 
+\addcontentsline{toc}{subsubsection}{Familienprobleme}
 
 ```{r RF Familienprobleme, include = FALSE}
 # Analyse mit Random Forest: Wer hat Familienprobleme?
@@ -399,6 +425,9 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 Abbildung 17 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit Familienproblemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), kranke Menschen, jüngere Menschen und Frauen (Signifikanzniveau von jeweils 1%) sowie Menschen mit Migrationshintergrund und Menschen mit Abschluss (Signifikanzniveau von jeweils 5%). 
 
 
+\newpage 
+\addcontentsline{toc}{subsubsection}{Schulden}
+
 ```{r RF Schulden, include = FALSE}
 # Analyse mit Random Forest: Wer hat Schulden?
 fit_RF <- randomForest(as.factor(Schulden) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
@@ -426,6 +455,9 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 Abbildung 18 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben Schulden aufzuweisen. Dies sind Männer und interessanterweise Menschen ohne Migrationshintergrund (jeweils Signifikanzniveau von 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 10%). Das Alter, der Familienstand und die Anzahl der Kinder scheinen dagegen wenig Einfluss auf die Schuldenlage zu haben. 
 
 
+\newpage 
+\addcontentsline{toc}{subsubsection}{Finanzsituation}
+
 ```{r RF Finanzen, include = FALSE}
 # Analyse mit Random Forest: Für wen hat sich die finanzielle Lage infolge von Corona verschlechtert?
 fit_RF <- randomForest(as.factor(corona_fin_schlechter) ~ kinder + migrationshintergrund + weiblich + allein + alter + abschluss + behinderung + krankheit, data=df,importance=TRUE,ntree=5000)
@@ -452,6 +484,8 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 
 Abbildung 19 analysiert, bei welchen Personen sich die finanzielle Situation infolge der Corona-Pandemie tendenziell verschlechtert hat. Dies sind Menschen mit Migrationshintergrund (1% Signifikanzniveau), alleinstehende und alleinerziehende Menschen und behinderte Menschen sowie interessanterweise Menschen mit Abschluss (jeweils 5% Signifikanzniveau). Dagegen scheint es keine signifikante Unterschiede nach Alter, Geschlecht und Krankheit zu geben.
 
+\newpage 
+\addcontentsline{toc}{subsubsection}{Sozialrechtliche Probleme}
 
 ```{r RF Sozialrechtlich, include = FALSE}
 # Analyse mit Random Forest: Wer hat sozialrechtliche Probleme?
@@ -479,6 +513,8 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 
 Abbildung 20 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit sozialrechtlichen Problemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern, Menschen mit Migrationshintergrund (Signifikanzniveau von jeweils 1%), alleinstehende und alleinerziehende Menschen sowie Männer (Signifikanzniveau von jeweils 5%). Das Alter scheint hingegen keinen maßgeblichen Einfluss zu haben.
 
+\newpage 
+\addcontentsline{toc}{subsubsection}{Sanktionen}
 
 ```{r RF Sanktionen, include = FALSE}
 # Analyse mit Random Forest: Wem wurden Sanktionen auferlegt?
@@ -512,6 +548,7 @@ Abbildung 21 analysiert, wer eine höhere Wahrscheinlichkeit hat nach Strafgeset
 
 Im Anhang sind der Vollständigkeit halber einige weitere Analysen enthalten, die jedoch eher wenig überraschende Ergebnisse beinhalten. 
 
+\addcontentsline{toc}{subsubsection}{Sprachprobleme}
 
 ```{r RF Sprachprobleme, include = FALSE}
 # Analyse mit Random Forest: Wer hat Sprachprobleme?
@@ -539,6 +576,8 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 
 Abbildung 22 analysiert, wer eine höhere Wahrscheinlichkeit hat, mit Sprachproblemen konfrontiert zu sein. Dass dies Menschen mit Migrationshintergrund und Menschen ohne Abschluss sind (Signifikanzniveau von 1% jeweils), überrascht wenig.
 
+\newpage 
+\addcontentsline{toc}{subsubsection}{Pflegebedürftigkeit}
 
 ```{r RF Pflege, include = FALSE}
 # Analyse mit Random Forest: Wer ist pflegebedürftig?
@@ -566,6 +605,9 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
 
 Abbildung 23 analysiert, welche Personen mit höherer Wahrscheinlichkeit pflegebedürftig sind. Wenig überraschend sind ältere, kranke und behinderte Menschen eher pflegebedürftig (Signifikanzniveau von 1%).
 
+
+\newpage 
+\addcontentsline{toc}{subsubsection}{Finanzhilfe}
 
 ```{r RF Finanzhilfe, include = FALSE}
 # Analyse mit Random Forest: Wer bekommt eine Finanzhilfe?
