@@ -169,7 +169,7 @@ Grundsätzlich haben die meisten Menschen in Deutschland einen Abschluss, wobei 
 source("skripte/Grafik_Migration_Bildung.R", encoding = "UTF-8")
 ```
 
-```{r Grafik Bildung ohne Migration}
+```{r Grafik Bildung ohne Migration, out.width="80%"}
 ggplot(ts_no_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, color = Bildungsabschluss)) +
   geom_line(size = 1.1) +
   scale_x_discrete(breaks = seq(2010, 2020, 2)) +
@@ -182,7 +182,7 @@ ggplot(ts_no_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsab
 
 ```
 
-```{r Grafik Bildung mit Migration}
+```{r Grafik Bildung mit Migration, out.width="80%"}
 ggplot(ts_yes_migration_education2, aes(x = Jahr, y = Prozent, group = Bildungsabschluss, color = Bildungsabschluss)) +
   geom_line(size = 1.1) +
   scale_color_brewer(palette = "Paired") +
