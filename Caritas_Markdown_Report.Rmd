@@ -230,17 +230,10 @@ Alle Analysen basieren auf den Fragebogendaten für das Jahr 2021. Um zu analysi
 \medskip 
 \newline 
 \noindent 
-Das Random Forest Modell sagt jedoch nichts über das Vorzeichen (+/-) der Effekte aus. Ein Beispiel: Nehmen wir an, dass laut des Random Forest Modells das Alter der wichtigste Faktor, hinsichtlich des Vorliegens einer bestimmten Problemlage, ist. Trotz dieser Erkenntnis wissen wir nicht, ob jüngere oder ältere Menschen eher von dieser Problemlage betroffen sind. Daher ziehen wir ein logistisches Regressionsmodell hinzu. Das Vorzeichen der resultierenden Koeffizienten gibt die Richtung des Effektes an. Wir haben dieses Vorzeichen in den Graphiken in Klammern hinter der entsprechenden Variable notiert, sofern der Effekt statistisch signifikant war. In diesen Fällen haben wir ebenfalls das Signifikanzniveau notiert. 
-\newline
-* bedeutet ein Signifikanzniveau von 10%, 
-
-\newline
-** bedeutet ein Signifikanzniveau von 5% und 
-
-\newline
-*** bedeutet ein Signifikanzniveau von 1%. 
-
-\newline
+Das Random Forest Modell sagt jedoch nichts über das Vorzeichen (+/-) der Effekte aus. Ein Beispiel: Nehmen wir an, dass laut des Random Forest Modells das Alter der wichtigste Faktor, hinsichtlich des Vorliegens einer bestimmten Problemlage, ist. Trotz dieser Erkenntnis wissen wir nicht, ob jüngere oder ältere Menschen eher von dieser Problemlage betroffen sind. Daher ziehen wir ein logistisches Regressionsmodell hinzu. Das Vorzeichen der resultierenden Koeffizienten gibt die Richtung des Effektes an. Wir haben dieses Vorzeichen in den Graphiken in Klammern hinter der entsprechenden Variable notiert, sofern der Effekt statistisch signifikant war. In diesen Fällen haben wir ebenfalls das Signifikanzniveau notiert. \newline
+* bedeutet ein Signifikanzniveau von 10%,\newline
+** bedeutet ein Signifikanzniveau von 5% und \newline
+*** bedeutet ein Signifikanzniveau von 1%. \newline
 Je mehr Sterne, desto signifikanter ist der Effekt. Hat ein Effekt beispielsweise ein Signifikanzniveau von 10%, bedeutet dies, dass wir mit 90%iger Sicherheit davon ausgehen können, dass der Faktor einen signifikanten Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage hat, während wir dies bei einem Signifikanzniveau von 1% mit 99%iger Sicherheit schlussfolgern können. 
 
 \newpage
