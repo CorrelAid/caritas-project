@@ -73,7 +73,7 @@ ggplot(Familienstand_Armutsgrenze, aes(x = TIME, y = Prozent, group = Familienst
 ```
 
 
-Als Arm und Armutsgefährdet wurden hier Haushalte definiert, die weniger als 60% des nationalen Medianeinkommens zur Verfügung haben. Es handelt sich dabei um die Messung relativer Armut und die gewählte Schwelle kann als willkürlich angesehen werden. Während eine Aufschlüsselung nach Geschlecht mithilfe der Daten nicht möglich war, lässt sich erkennen, dass ein überproportional hoher Anteil Alleinerziehender in die Schuldnerberatung kommt (ca. 20% der Hilfesuchenenden in der Beratung im Vergleich zu etwa 12% in der Bevölkerung). Allerdings sind die Differenzen für keine Gruppe auffällig groß. Anzumerken ist, dass 2020 ein break in series erfolgt ist, die Zahlen also nicht vollkommen vergleichbar mit den vorherigen Jahren sind. Mit Blick darauf sollten vor allem die großen Veränderungen zu 2019 vorsichtig intepretiert werden, da sie gegebenenfalls auf diesen break in series und nicht Veränderungen im Einkommensniveau oder Familienstruktur der Haushalte zurückzuführen sind. Quelle: EU-SILC (ilc_lvps02).
+Als arm und armutsgefährdet wurden hier Haushalte definiert, die weniger als 60% des nationalen Medianeinkommens zur Verfügung haben. Es handelt sich dabei um die Messung relativer Armut und die gewählte Schwelle kann als willkürlich angesehen werden. Während eine Aufschlüsselung nach Geschlecht mithilfe der Daten nicht möglich war, lässt sich erkennen, dass ein überproportional hoher Anteil Alleinerziehender in die Schuldnerberatung kommt (ca. 20% der Hilfesuchenenden in der Beratung im Vergleich zu etwa 12% in der Bevölkerung). Allerdings sind die Differenzen für keine Gruppe auffällig groß. Anzumerken ist, dass 2020 ein break in series erfolgt ist, die Zahlen also nicht vollkommen vergleichbar mit den vorherigen Jahren sind. Mit Blick darauf sollten vor allem die großen Veränderungen zu 2019 vorsichtig intepretiert werden, da sie gegebenenfalls auf diesen break in series und nicht Veränderungen im Einkommensniveau oder Familienstruktur der Haushalte zurückzuführen sind. Quelle: EU-SILC (ilc_lvps02).
 
 
 ## Anteil mit Migrationshintergrund im Zeitverlauf
@@ -94,7 +94,7 @@ ggplot(ts_migration2, aes(x = Jahr, y = Prozent, group = Migrationshintergrund, 
 ```
 
 
-Der Anteil an Menschen mit Migrationshintergrund steigt im Laufe der Zeit, insbesondere von 2015 zu 2016 ist ein deutlicher Anstieg erkennbar.
+Der Anteil an Menschen mit Migrationshintergrund steigt im Laufe der Zeit;insbesondere von 2015 zu 2016 ist ein deutlicher Anstieg erkennbar.
 
 ### Vergleich mit Herkunft in der Bevölkerung
 ```{r Vergleich Herkunft SetUp, include=FALSE, warning=FALSE, message=FALSE}
@@ -117,7 +117,7 @@ ggplot(Geburtsland, aes(x = TIME, y = Prozent, group = Geburtsland, color = Gebu
 ```
 
 
-Insgesamt lassen sich nur geringe Veränderungen über Zeit feststellen: Die Befragten, die in Deutschland geboren wurden, nehmen nur marginal ab. Proportional nimmt der Anteil der im Ausland geborenen zu, mit einem Höchststand von circa 20% in 2019. Von diesen kommen etwas mehr aus EU-Drittstaaten (also Ländern, die mit Stand 2020 nicht EU-Mitglied sind) als aus der EU (Stand 2020, also ohne UK). Anzumerken ist, dass die Daten für 2020 nur Provisorisch sind.Quelle: EU-LFS (lfsa_pgacws).
+Insgesamt lassen sich nur geringe Veränderungen über Zeit feststellen: Der Anteil der Befragten, die in Deutschland geboren wurden, nehmen nur marginal ab. Proportional nimmt der Anteil der im Ausland geborenen zu, mit einem Höchststand von circa 20% in 2019. Von diesen kommen etwas mehr aus EU-Drittstaaten (also Ländern, die mit Stand 2020 nicht EU-Mitglied sind) als aus der EU (Stand 2020, also ohne UK). Anzumerken ist, dass die Daten für 2020 nur provisorisch sind. Quelle: EU-LFS (lfsa_pgacws).
 
 \newpage 
 
@@ -161,7 +161,7 @@ ggplot(df1, aes(x = TIME, y = Value, group = Bildungsabschluss, color = Bildungs
 
 ```
 
-Grundsätzlich haben die meisten Menschen in Deutschland einen Abschluss, wobei der Anteil der Menschen mit tertiärer Bildung (Meister, Studium) über die Jahre hinweg ansteigt. Es überrascht nicht, dass die niedrig Gebildete in der Beratung überrepräsentiert sind. Die Zahlen für 2020 sind provisorisch und mehrere breaks in series fanden statt, die Zahlen sind also nicht vollumfänglich über Zeit vergleichbar. Quelle: EU-LSF (edat_lfse_03).
+Grundsätzlich haben die meisten Menschen in Deutschland einen Abschluss, wobei der Anteil der Menschen mit tertiärer Bildung (Meister, Studium) über die Jahre hinweg ansteigt. Es überrascht nicht, dass die niedriger Gebildete in der Beratung überrepräsentiert sind. Die Zahlen für 2020 sind provisorisch und mehrere breaks in series fanden statt, die Zahlen der jeweiligen Jahre sind also nicht vollumfänglich untereinander vergleichbar. Quelle: EU-LSF (edat_lfse_03).
 
 
 ## Bildungsabschluss mit und ohne Migrationshintergrund
@@ -208,7 +208,7 @@ plot_problems
 
 
 ```
-Sozialrechtliche Probleme und der Umgang mit Behörden steigen unter den Problemlagen im Zeitverlauf an, letzteres macht seit 2019 den größten Anteil aus. Im Jahr 2018 kamen besonders viele Menschen mit finanziellen Schwierigkeiten in die ASB (47%), danach nimmt der Anteil wieder ab. Der Anteil der Personen mit Krankheiten und psychischen Problemen sinkt dagegen im Laufe der Zeit, insbesondere seit 2017 und liegt seitdem konstant unter 30%.
+Sozialrechtliche Probleme und Probleme im Umgang mit Behörden steigen im Zeitverlauf an; letzteres macht seit 2019 den größten Anteil aus. Im Jahr 2018 kamen besonders viele Menschen mit finanziellen Schwierigkeiten in die ASB (47%), danach nimmt der Anteil wieder ab. Der Anteil der Personen mit Krankheiten und psychischen Problemen sinkt dagegen im Laufe der Zeit, insbesondere seit 2017 und liegt seitdem konstant unter 30%.
 
 ## Analyse der wohnungsbedingten Problemlagen für Berlin
 ```{r Wohnen Setup, include=FALSE, message=FALSE, warning=FALSE}
@@ -218,15 +218,30 @@ source("skripte/Grafik_Wohnen.R", encoding = "UTF-8")
 ```{r Wohnen Grafik, warning = FALSE, message = FALSE, fig.width = 9}
 problems_bb
 ```
-Der massive Anstieg von Miet- und Energiepreisen bildet sich nur zu einem gewissen Grad an der Entwicklung der Problemlagen ab, weshalb Menschen die Sozialberatung der Caritas aufsuchen. In besonders betroffenen Regionen wie etwa Berlin zeigt sich zwar in den letzten zehn Jahren - mit sichtbaren Schwankungen - ein markanter Anstieg an wohnungsbedingter Probleme, die drängendsten Probleme, weswegen sich Personen an die Sozialberatung wenden, liegen jedoch auch in diesen Regionen (in Einklang mit dem allgemeinen bundesweiten Trend) mit über 50% beim Umgang mit Behörden und im Bereich des Sozialrechts.
+Der massive Anstieg von Miet- und Energiepreisen bildet sich nur zu einem gewissen Grad in den Problemlagen ab, aufgrund deren Menschen die Sozialberatung der Caritas aufsuchen. In besonders betroffenen Regionen, hier Berlin, zeigt sich über die letzten zehn Jahre - mit sichtbaren Schwankungen - ein markanter Anstieg an wohnungsbedingter Probleme. Die drängendsten Probleme, weswegen sich Personen an die Sozialberatung wenden, liegen jedoch auch in diesen Regionen (in Einklang mit dem allgemeinen bundesweiten Trend) mit über 50% beim Umgang mit Behörden und im Bereich des Sozialrechts.Es ist jedoch in Frage zu Stellen, inwieweit Berlin mit anderen deutschen Metropolen vergleichbar ist. 
 
 \newpage
 ## Statistische Analysen
-Die nachfolgenden Graphiken dienen der Auswertung der Fragestellung: Welche Faktoren haben maßgeblichen Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage ausgesetzt zu sein? Alle Analysen basieren auf den Fragebogendaten für das Jahr 2021. Um zu analysieren welche Personen eine höhere Wahrscheinlichkeit haben mit einer bestimmten Problemlage konfrontiert zu sein, haben wir Random Forest Modelle angewandt. Diese ermöglichen eine Einschätzung der relativen Variablenwichtigkeit. Denjenigen Variablen, die einen größeren „Mean Decrease in Accuracy“ ermöglichen, d.h. die abhängige Variable besser erklären, wird eine höhere relative Variablenwichtigkeit zugesprochen. 
+Die nachfolgenden Graphiken dienen der Auswertung folgender Fragestellung: Welche Faktoren haben maßgeblichen Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage ausgesetzt zu sein? 
+\medskip 
+\newline 
+\noindent
+Alle Analysen basieren auf den Fragebogendaten für das Jahr 2021. Um zu analysieren, welche Personen eine höhere Wahrscheinlichkeit haben, mit einer bestimmten Problemlage konfrontiert zu werden, haben wir sogenannte "Random Forest Modelle" angewandt. Diese ermöglichen eine Einschätzung der relativen Variablenwichtigkeit. Denjenigen Variablen, die einen größeren „Mean Decrease in Accuracy“ ermöglichen, d.h. die abhängige Variable besser erklären, wird eine höhere relative Variablenwichtigkeit zugesprochen. 
 \medskip 
 \newline 
 \noindent 
-Das Random Forest Modell sagt jedoch nichts über das Vorzeichen der Effekte aus. Ein Beispiel: Nehmen wir an, dass laut des Random Forest Modells das Alter der wichtigste Faktor ist hinsichtlich des Vorliegens einer bestimmten Problemlage. Trotz dieser Erkenntnis wissen wir nicht, ob jüngere oder ältere Menschen eher von dieser Problemlage betroffen sind. Daher ziehen wir zudem ein logistisches Regressionsmodell hinzu. Das Vorzeichen der resultierenden Koeffizienten gibt die Richtung des Effektes an. Wir haben dieses Vorzeichen in den Graphiken in Klammern hinter der entsprechenden Variable notiert, sofern der Effekt statistisch signifikant war. In diesen Fällen haben wir ebenfalls das Signifikanzniveau notiert. * bedeutet ein Signifikanzniveau von 10%, ** bedeutet ein Signifikanzniveau von 5% und *** bedeutet ein Signifikanzniveau von 1%. Je mehr Sterne, desto signifikanter ist der Effekt. Hat ein Effekt beispielsweise ein Signifikanzniveau von 10%, bedeutet dies, dass wir mit 90%iger Sicherheit davon ausgehen können, dass der Faktor einen signifikanten Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage hat, während wir dies bei einem Signifikanzniveau von 1% mit 99%iger Sicherheit schlussfolgern können. 
+Das Random Forest Modell sagt jedoch nichts über das Vorzeichen (+/-) der Effekte aus. Ein Beispiel: Nehmen wir an, dass laut des Random Forest Modells das Alter der wichtigste Faktor, hinsichtlich des Vorliegens einer bestimmten Problemlage, ist. Trotz dieser Erkenntnis wissen wir nicht, ob jüngere oder ältere Menschen eher von dieser Problemlage betroffen sind. Daher ziehen wir ein logistisches Regressionsmodell hinzu. Das Vorzeichen der resultierenden Koeffizienten gibt die Richtung des Effektes an. Wir haben dieses Vorzeichen in den Graphiken in Klammern hinter der entsprechenden Variable notiert, sofern der Effekt statistisch signifikant war. In diesen Fällen haben wir ebenfalls das Signifikanzniveau notiert. 
+\newline
+* bedeutet ein Signifikanzniveau von 10%, 
+
+\newline
+** bedeutet ein Signifikanzniveau von 5% und 
+
+\newline
+*** bedeutet ein Signifikanzniveau von 1%. 
+
+\newline
+Je mehr Sterne, desto signifikanter ist der Effekt. Hat ein Effekt beispielsweise ein Signifikanzniveau von 10%, bedeutet dies, dass wir mit 90%iger Sicherheit davon ausgehen können, dass der Faktor einen signifikanten Einfluss auf die Wahrscheinlichkeit einer bestimmten Problemlage hat, während wir dies bei einem Signifikanzniveau von 1% mit 99%iger Sicherheit schlussfolgern können. 
 
 \newpage
 \addcontentsline{toc}{subsubsection}{Arbeitslosigkeit}
@@ -250,7 +265,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 11: Wer ist arbeitslos?")
 ```
 
-Abbildung 11 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben arbeitslos zu sein. Dies sind Menschen mit weniger Kindern, Männer, kranke Menschen (Signifikanzniveau von jeweils 1%) sowie alleinstehende und alleinerziehende Menschen und Menschen ohne Behinderung (Signifikanzniveau von 5%). Interessanterweise haben Menschen ohne Abschluss und Menschen mit Migrationshintergrund keine signifikant höhere Wahrscheinlichkeit arbeitslos zu sein. Darüber hinaus lässt sich kein statistisch signifikanter Unterschied nach Alter feststellen.
+Abbildung 11 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben arbeitslos zu sein. Dies sind vor allem Menschen mit vergleichsweiße weniger Kindern, Männer, kranke Menschen (Signifikanzniveau von jeweils 1%) sowie alleinstehende und alleinerziehende Menschen und Menschen ohne Behinderung (Signifikanzniveau von 5%). Interessanterweise haben Menschen ohne Abschluss und Menschen mit Migrationshintergrund keine signifikant höhere Wahrscheinlichkeit arbeitslos zu sein. Darüber hinaus lässt sich kein statistisch signifikanter Unterschied nach Alter feststellen.
 
 \newpage 
 \addcontentsline{toc}{subsubsection}{ALG II seit mehr als 2 Jahren}
@@ -279,7 +294,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 12: Wer bezieht seit \n mehr als 2 Jahren ALG II?")
 ```
 
-Abbildung 12 analysiert, welche Personen seit mehr als zwei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie kranke Menschen (Signifikanzniveau von 5%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht und dem Vorliegen eines Migrationshintergrunds feststellen. 
+Abbildung 12 analysiert, welche Personen seit mehr als zwei Jahren ALG II beziehen. Dies sind Menschen mit vergleichsweiße mehr Kindern, Menschen ohne Abschluss, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie kranke Menschen (Signifikanzniveau von 5%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht und dem Vorliegen eines Migrationshintergrunds feststellen. 
 
 \newpage 
 \addcontentsline{toc}{subsubsection}{ALG II seit mehr als 3 Jahren}
@@ -308,7 +323,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 13: Wer bezieht seit \n mehr als 3 Jahren ALG II?")
 ```
 
-Abbildung 13 analysiert, welche Personen seit mehr als drei Jahren ALG II beziehen. Dies sind Menschen mit mehr Kindern, Menschen ohne Abschluss sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht, Gesundheitszustand und dem Vorliegen eines Migrationshintergrunds feststellen. 
+Abbildung 13 analysiert, welche Personen seit mehr als drei Jahren ALG II beziehen. Dies sind Menschen mit vergleichsweiße mehr Kindern, Menschen ohne Abschluss sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%). Interessanterweise lassen sich keine statistisch signifikante Unterschiede nach Alter, Geschlecht, Gesundheitszustand und dem Vorliegen eines Migrationshintergrunds feststellen. 
 
 
 \newpage 
@@ -338,7 +353,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 14: Wer hat \n Probleme mit den Behörden?")
 ```
 
-Abbildung 14 analysiert, welche Personen mit höherer Wahrscheinlichkeit Probleme mit den Behörden haben. Wie man erwarten könnte, sind dies Menschen mit Migrationshintergrund, Menschen ohne Abschluss sowie Menschen mit mehr Kindern und alleinstehende und alleinerziehende Menschen (alle jeweils Signifikanzniveau von 1%). Darüber hinaus scheinen behinderte und überraschenderweise gesunde Menschen tendenziell eher Probleme mit den Behörden zu haben (Signifikanzniveau von 5%). Nach Alter und Geschlecht ergeben sich dagegen keine statistisch signifikante Unterschiede.
+Abbildung 14 analysiert, welche Personen mit einer höherer Wahrscheinlichkeit von Problemen mit Behörden betroffen sind. Es überrascht nicht, dass vor allem Menschen mit Migrationshintergrund, ohne Abschluss, Alleinstehende, Alleinerziehende sowie Menschen mit vergleichsweiße mehr Kindern betroffen sind (alle jeweils Signifikanzniveau von 1%). Darüber hinaus scheinen behinderte und, überraschenderweise, gesunde Menschen tendenziell eher Probleme mit den Behörden zu haben (Signifikanzniveau von 5%). Nach Alter und Geschlecht ergeben sich keine statistisch signifikante Unterschiede.
 
 
 \newpage 
@@ -368,7 +383,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 15: Wer hat Schwierigkeiten \n das Jobcenter zu erreichen?")
 ```
 
-Abbildung 15 analysiert, welche Personen mit höherer Wahrscheinlichkeit Schwierigkeiten haben das Jobcenter zu erreichen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), jüngere Menschen, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie nach Gesundheitsstatus und Geschlecht.
+Abbildung 15 analysiert, welche Personen mit höherer Wahrscheinlichkeit Schwierigkeiten haben das Jobcenter zu erreichen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), jüngere Menschen, alleinstehende und alleinerziehende Menschen (Signifikanzniveau von jeweils 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 5%). Überraschenderweise gibt es weder signifikante Unterschiede zwischen Menschen mit und ohne Migrationshintergrund noch nach Gesundheitsstatus und Geschlecht.
 
 
 \newpage 
@@ -398,7 +413,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 16: Wer hat \n Antragsstellungsschwierigkeiten mit dem Jobcenter?")
 ```
 
-Abbildung 16 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben auf Probleme mit dem Jobcenter bei der Antragsstellung zu stoßen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 5%), jüngere Menschen, Männer und Menschen ohne Abschluss (Signifikanzniveau von 1%) sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von 5%). Überraschenderweise gibt es keinen signifikanten Unterschied zwischen Menschen mit und ohne Migrationshintergrund sowie gesunden und kranken Menschen.
+Abbildung 16 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben, bei der Antragstellung im Jobcentre auf Probleme zu stoßen. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 5%), jüngere Menschen, Männer und Menschen ohne Abschluss (Signifikanzniveau von 1%) sowie alleinstehende und alleinerziehende Menschen (Signifikanzniveau von 5%). Überraschenderweise finden sich keine signifikanten Unterschiede nach Gesundheitsstatus und Migrationshintergrund.
 
 
 \newpage 
@@ -428,7 +443,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 17: Wer hat Familienprobleme?")
 ```
 
-Abbildung 17 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit Familienproblemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), kranke Menschen, jüngere Menschen und Frauen (Signifikanzniveau von jeweils 1%) sowie Menschen mit Migrationshintergrund und Menschen mit Abschluss (Signifikanzniveau von jeweils 5%). 
+Abbildung 17 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben, mit Familienproblemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern (Signifikanzniveau von 10%), kranke Menschen, jüngere Menschen und Frauen (Signifikanzniveau von jeweils 1%) sowie Menschen mit Migrationshintergrund und Menschen mit Abschluss (Signifikanzniveau von jeweils 5%). 
 
 
 \newpage 
@@ -458,7 +473,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 18: Wer hat Schulden?")
 ```
 
-Abbildung 18 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben Schulden aufzuweisen. Dies sind Männer und interessanterweise Menschen ohne Migrationshintergrund (jeweils Signifikanzniveau von 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 10%). Das Alter, der Familienstand und die Anzahl der Kinder scheinen dagegen wenig Einfluss auf die Schuldenlage zu haben. 
+Abbildung 18 analysiert, welche Personen eine höhere Wahrscheinlichkeit aufweisen, verschuldet zu sein. Dies sind vor allem Männer und Menschen ohne Migrationshintergrund (jeweils Signifikanzniveau von 1%) sowie Menschen ohne Abschluss (Signifikanzniveau von 10%). Das Alter, der Familienstand und die Anzahl der Kinder scheinen dagegen kaum Einfluss auf die Schuldenlage zu haben. 
 
 
 \newpage 
@@ -488,7 +503,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 19: Für wen hat sich die finanzielle \n Lage infolge von Corona verschlechtert?")
 ```
 
-Abbildung 19 analysiert, bei welchen Personen sich die finanzielle Situation infolge der Corona-Pandemie tendenziell verschlechtert hat. Dies sind Menschen mit Migrationshintergrund (1% Signifikanzniveau), alleinstehende und alleinerziehende Menschen und behinderte Menschen sowie interessanterweise Menschen mit Abschluss (jeweils 5% Signifikanzniveau). Dagegen scheint es keine signifikante Unterschiede nach Alter, Geschlecht und Krankheit zu geben.
+Abbildung 19 analysiert, bei welchen Personen sich die finanzielle Situation infolge der Corona-Pandemie tendenziell verschlechtert hat. Dies sind Menschen mit Migrationshintergrund (1% Signifikanzniveau), Alleinstehende und Alleinerziehende,  Menschen mit Behinderung sowie Menschen mit Abschluss (jeweils 5% Signifikanzniveau). Dagegen wurden keine signifikanten Unterschiede nach Alter, Geschlecht und Krankheit gefunden.
 
 \newpage 
 \addcontentsline{toc}{subsubsection}{Sozialrechtliche Probleme}
@@ -517,7 +532,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 20: Wer hat \n sozialrechtliche Probleme?")
 ```
 
-Abbildung 20 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben mit sozialrechtlichen Problemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern, Menschen mit Migrationshintergrund (Signifikanzniveau von jeweils 1%), alleinstehende und alleinerziehende Menschen sowie Männer (Signifikanzniveau von jeweils 5%). Das Alter scheint hingegen keinen maßgeblichen Einfluss zu haben.
+Abbildung 20 analysiert, welche Personen eine höhere Wahrscheinlichkeit haben, mit sozialrechtlichen Problemen konfrontiert zu sein. Dies sind Menschen mit mehr Kindern, Menschen mit Migrationshintergrund (Signifikanzniveau von jeweils 1%), alleinstehende und alleinerziehende Menschen sowie Männer (Signifikanzniveau von jeweils 5%). Das Alter scheint hingegen keinen maßgeblichen Einfluss zu haben.
 
 \newpage 
 \addcontentsline{toc}{subsubsection}{Sanktionen}
@@ -546,7 +561,7 @@ dotchart(imp$MeanDecreaseAccuracy, imp$vars,
          xlim=c(0,max(imp$MeanDecreaseAccuracy)+10), pch=20, cex=0.75, pt.cex=1.2, gcolor = "dodgerblue", xlab = "\n Relative Variablenwichtigkeit \n (Mean Decrease in Accuracy)", main="Abbildung 21: Wem wurden \n Sanktionen auferlegt?")
 ```
 
-Abbildung 21 analysiert, wer eine höhere Wahrscheinlichkeit hat nach Strafgesetzbuch 2 mit Sanktionen belegt worden zu sein. Dies ist der Fall für jüngere Menschen (Signifikanzniveau von 1%), alleinstehende und alleinerziehende Personen (Signifikanzniveau von 5%), Menschen mit Migrationshintergrund und Männer (jeweils Signifikanzniveau von 10%).
+Abbildung 21 analysiert, wer eine höhere Wahrscheinlichkeit hat, nach Strafgesetzbuch 2 mit Sanktionen belegt worden zu sein. Dies ist der Fall für jüngere Menschen (Signifikanzniveau von 1%), Alleinstehende und Alleinerziehende (Signifikanzniveau von 5%), Menschen mit Migrationshintergrund und Männer (jeweils Signifikanzniveau von 10%).
 
 
 \newpage 
