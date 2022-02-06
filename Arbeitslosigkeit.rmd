@@ -1,0 +1,779 @@
+---
+title: "Arbeitslosigkeit"
+author: "Dylan Thurgood"
+date: "06/02/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include=FALSE}
+library(tidyverse)
+library(readxl)
+library(dplyr)
+library(randomForest)
+library(Hmisc)
+```
+
+```{r include = FALSE}
+### Daten einlesen und verarbeiten
+
+raw_2021 <- read.csv2("Rohdaten_2021.csv", encoding = "UTF-8") 
+
+#Beratungsgespräch 2021
+
+talk_2021 <- raw_2021 %>% select(Beratungsgespräch = Beratungsgespräch.findet.statt.) %>%
+  filter(Beratungsgespräch !='') %>%
+  mutate(Beratungsgespräch = replace(Beratungsgespräch, which(Beratungsgespräch == "per Email/online"), "E-Mail")) %>%
+  count(Beratungsgespräch) %>%
+  mutate(Prozent = round((n/sum(n))*100,2)) %>%
+  arrange(desc(n))
+
+ggplot(talk_2021, aes(x = "", y = n, fill = Beratungsgespräch)) +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  coord_polar("y", start = 0) + 
+  geom_text(aes(label = paste0(Prozent, "%")), position = position_stack(vjust=0.5), color = "black") + 
+  labs(
+    title = "Beratungsgespräch 2021"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
+  ) +
+  scale_fill_brewer(palette="Blues")
+
+
+#Geschlecht 2021 (Der Einfachkeithalber die 3 'divers' Fälle nicht berücksichtigt)
+
+gender_2021 <- raw_2021 %>% select(Geschlecht) %>%
+  filter(Geschlecht != "Divers") %>%
+  filter(Geschlecht != '') %>%
+  mutate(Geschlecht = replace(Geschlecht, which(Geschlecht == "Weiblich"), "weiblich")) %>%
+  mutate(Geschlecht = replace(Geschlecht, which(Geschlecht == "Männlich"), "männlich")) %>%
+  count(Geschlecht) %>%
+  mutate(Prozent = round((n/sum(n))*100,2)) %>%
+  arrange(desc(n))
+
+ggplot(gender_2021, aes(x = "", y = n, fill = Geschlecht)) +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  coord_polar("y", start = 0) + 
+  geom_text(aes(label = paste0(Prozent, "%")), position = position_stack(vjust=0.5), color = "black") + 
+  labs(
+    title = "Geschlecht 2021"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
+  ) +
+  scale_fill_brewer(palette="Blues") 
+
+
+#Familiensituation 2021
+
+family_2021 <- raw_2021 %>% select(Familiensituation) %>%
+  filter(Familiensituation != '') %>%
+  mutate(Familiensituation = replace(Familiensituation, which(Familiensituation == "Alleinstehend (Einpersonenhaushalt)"), "alleinstehend")) %>%
+  mutate(Familiensituation = replace(Familiensituation, which(Familiensituation == "Ehe/Partnerschaft/Familie"), "Ehe/Partnerschaft/Familie")) %>%
+  mutate(Familiensituation = replace(Familiensituation, which(Familiensituation == "Alleinerziehend (Ein-Eltern-Familie)"), "alleinerziehend")) %>%
+  count(Familiensituation) %>%
+  mutate(Prozent = round((n/sum(n))*100,2)) %>%
+  arrange(desc(n))
+
+ggplot(family_2021, aes(x = "", y = n, fill = Familiensituation)) +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  coord_polar("y", start = 0) + 
+  geom_text(aes(label = paste0(Prozent, "%")), position = position_stack(vjust=0.5), color = "black") + 
+  labs(
+    title = "Familiensituation 2021"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
+  ) +
+  scale_fill_brewer(palette="Blues")
+
+
+#Alter 2021
+
+age_2021 <- raw_2021 %>% select(Alter = Alter.des.der.Klient.in) %>%
+  filter(Alter != '') %>%
+  mutate(Alter = replace(Alter, which(Alter == "bis 17"), "<17")) %>%
+  count(Alter) %>%
+  mutate(Prozent = round((n/sum(n))*100,2))
+
+ggplot(age_2021, aes(x = "", y = n, fill = Alter)) +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  coord_polar("y", start = 0) + 
+  geom_text(aes(label = paste0(Prozent, "%")), position = position_stack(vjust=0.5), color = "black") + 
+  labs(
+    title = "Alter 2021"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
+  ) +
+  scale_fill_brewer(palette="Blues")
+
+
+#Kinderanzahl 2021
+
+children_2021 <- raw_2021 %>% select(Kinderanzahl = Anzahl.der.Kinder.im.Haushalt) %>%
+  filter(Kinderanzahl != '') %>%
+  mutate(Kinderanzahl = replace(Kinderanzahl, which(Kinderanzahl == "Keine"), "keine")) %>%
+  mutate(Kinderanzahl = replace(Kinderanzahl, which(Kinderanzahl == "Mehr als 2 Kinder"), "mehr als 2 Kinder")) %>%
+  count(Kinderanzahl) %>%
+  mutate(Prozent = round((n/sum(n))*100,2))
+
+ggplot(children_2021, aes(x = "", y = n, fill = Kinderanzahl)) +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  coord_polar("y", start = 0) + 
+  geom_text(aes(label = paste0(Prozent, "%")), position = position_stack(vjust=0.5), color = "black") + 
+  labs(
+    title = "Kinderanzahl 2021"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
+  ) +
+  scale_fill_brewer(palette="Blues")
+
+
+#Bildungsabschluss 2021
+
+education_2021 <- raw_2021 %>% select(Bildungsabschluss) %>%
+  filter(Bildungsabschluss != '') %>%
+  count(Bildungsabschluss) %>%
+  mutate(Prozent = round((n/sum(n))*100,2))
+
+ggplot(education_2021, aes(x = "", y = n, fill = Bildungsabschluss)) +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  coord_polar("y", start = 0) + 
+  geom_text(aes(label = paste0(Prozent, "%")), position = position_stack(vjust=0.5), color = "black") + 
+  labs(
+    title = "Bildungsabschluss 2021"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
+  ) +
+  scale_fill_brewer(palette="Blues")
+
+
+#Migration 2021
+
+migration_2021 <- rbind(
+  
+  raw_2021 %>% select(Migrationshintergrund = Migrationshintergrund.des.Hilfesuchenden) %>%
+    filter(Migrationshintergrund != "Keine Angabe") %>%
+    mutate(Migrationshintergrund = replace(Migrationshintergrund, which(Migrationshintergrund == "x"), "Migrationshintergrund des Hilfesuchenden")) %>%
+    mutate(Migrationshintergrund = replace(Migrationshintergrund, which(Migrationshintergrund == ''), "kein Migrationshintergrund des Hilfesuchenden")) %>%
+    count(Migrationshintergrund) %>%
+    mutate(Prozent = round((n/sum(n))*100,2)),
+  
+  raw_2021 %>% select(Migrationshintergrund = Migrationshintergrund.des.Partners) %>%
+    filter(Migrationshintergrund != "Keine Angabe") %>%
+    mutate(Migrationshintergrund = replace(Migrationshintergrund, which(Migrationshintergrund == "x"), "Migrationshintergrund des Partners")) %>%
+    mutate(Migrationshintergrund = replace(Migrationshintergrund, which(Migrationshintergrund == ''), "kein Migrationshintergrund des Partners")) %>%
+    count(Migrationshintergrund) %>%
+    mutate(Prozent = round((n/sum(n))*100,2))
+  
+)
+
+
+#Einkommen 2021
+
+income1_2021 <- raw_2021 %>% select(Einkommensart..Erwerbseinkommen, Einkommensart..ALG.I, Einkommensart..ALG.II, Einkommensart..Aufstocker, 
+                                    Einkommensart..SGB.XII, Einkommensart..Rente, Einkommensart..Wohngeld, Einkommensart..Elterngeld, Einkommensart..Kinderzuschlag,
+                                    Einkommensart..Kindergeld, Einkommensart...Unterhalt..vorschuss, Einkommensart..Krankengeld, 
+                                    Einkommensart..Asylbewerb.leist.gesetz, Einkommensart..Kurzarbeitergeld) %>%
+  count(Einkommensart..Erwerbseinkommen, Einkommensart..ALG.I, Einkommensart..ALG.II, Einkommensart..Aufstocker, 
+        Einkommensart..SGB.XII, Einkommensart..Rente, Einkommensart..Wohngeld, Einkommensart..Elterngeld, Einkommensart..Kinderzuschlag,
+        Einkommensart..Kindergeld, Einkommensart...Unterhalt..vorschuss, Einkommensart..Krankengeld, 
+        Einkommensart..Asylbewerb.leist.gesetz, Einkommensart..Kurzarbeitergeld)
+
+
+missing <- as.numeric(income1_2021 %>% summarise(missing = first(n)))
+
+income2_2021 <- rbind(
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..Erwerbseinkommen) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "Erwerbseinkommen")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..ALG.I) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "ALG I")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..ALG.II) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "ALG II")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..Aufstocker) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "Aufstocker")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..SGB.XII) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "SGB XII")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..Rente) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "Rente")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..Wohngeld) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "Wohngeld")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..Elterngeld) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "Elterngeld")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..Kinderzuschlag) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "Kinderzuschlag")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..Kindergeld) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "Kindergeld")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart...Unterhalt..vorschuss) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "Unterhalt/-vorschuss")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..Krankengeld) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "Krankengeld")) %>%
+    count(Einkommen) %>%
+    arrange(desc(Einkommen)) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_head(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..Asylbewerb.leist.gesetz) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "Asylbewerb.leist.gesetz")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Einkommen = Einkommensart..Kurzarbeitergeld) %>%
+    mutate(Einkommen = replace(Einkommen, which(Einkommen == "x"), "Kurzarbeitergeld")) %>%
+    count(Einkommen) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail()
+  
+)
+
+ggplot(data = income2_2021, aes(x = Einkommen, y = Prozent)) + 
+  geom_bar(stat="identity", fill="steelblue") + 
+  coord_flip() +
+  geom_text(aes(label = paste0(Prozent, "%")), vjust= 1, color="black", size=3.5) +
+  labs(
+    title = "Einkommensarten 2021"
+  ) +
+  theme(
+    plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
+  )
+
+
+#Problemlage 2021
+
+problems1_2021 <- raw_2021 %>% select(Problemlage..sozialrechtliche.Probleme, Problemlage..Umgang.mit.Behörden, Problemlage..Arbeitslosigkeit,
+                                      Problemlage..Sanktionen.nach.SGB.II, Problemlage..Schulden.allgemein, Problemlage..Energieschulden, Problemlage..Mietschulden,
+                                      Problemlage..sonstige.finanzielle.Prob., Problemlage..Partner...Erziehung..fam...,
+                                      Problemlage..Krankheit, Problemlage..Alter.Pflegebedürftigkeit,
+                                      Problemlage..Behinderung, Problemlage..Bereich.Wohnen, Problemlage..Sprachprobleme) %>%
+  count(Problemlage..sozialrechtliche.Probleme, Problemlage..Umgang.mit.Behörden, Problemlage..Arbeitslosigkeit,
+        Problemlage..Sanktionen.nach.SGB.II, Problemlage..Schulden.allgemein, Problemlage..Energieschulden, Problemlage..Mietschulden,
+        Problemlage..sonstige.finanzielle.Prob., Problemlage..Partner...Erziehung..fam...,
+        Problemlage..Krankheit, Problemlage..Alter.Pflegebedürftigkeit,
+        Problemlage..Behinderung, Problemlage..Bereich.Wohnen, Problemlage..Sprachprobleme)
+
+
+missing <- as.numeric(problems1_2021 %>% summarise(missing = first(n)))
+
+problems2_2021 <- rbind(
+  
+  raw_2021 %>% select(Problemlage = Problemlage..sozialrechtliche.Probleme) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "sozialrechtliche Probleme")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Partner...Erziehung..fam...) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Partner/Erziehung/familiäre Probleme")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Umgang.mit.Behörden) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Umgang mit Behörde")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Arbeitslosigkeit) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Arbeitslosigkeit")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Krankheit) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Krankheit (auch psychische Probleme)")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Sanktionen.nach.SGB.II) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Sanktionen nach SGB II")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Alter.Pflegebedürftigkeit) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Alter/Pflegebedürftigkeit")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Schulden.allgemein) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Schulden allgemein")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Energieschulden) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Energieschulden")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Mietschulden) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Mietschulden")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Behinderung) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Behinderung")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..sonstige.finanzielle.Prob.) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Sonstige finanzielle Schwierigkeiten")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Bereich.Wohnen) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Probleme im Bereich Wohnen")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Problemlage = Problemlage..Sprachprobleme) %>%
+    mutate(Problemlage = replace(Problemlage, which(Problemlage == "x"), "Sprachprobleme")) %>%
+    count(Problemlage) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail()
+  
+)
+
+ggplot(data = problems2_2021, aes(x = Problemlage, y = Prozent)) + 
+  geom_bar(stat="identity", fill="steelblue") + 
+  coord_flip() +
+  geom_text(aes(label = paste0(Prozent, "%")), vjust= 0.5, color="black", size=3.5) +
+  labs(
+    title = "Problemlagen 2021"
+  ) +
+  theme(
+    plot.title = element_text(color = "black", size = 15, face = "bold", hjust = 0.5)
+  )
+
+
+#Maßnahmen 2021
+
+measures1_2021 <- raw_2021 %>% select(Maßnahmen..Information...Beratung, Maßnahmen..Weitervermittlung,
+                                      Maßnahmen..Hilfe.bei.Anträgen.Korres..., Maßnahmen..Hilfe.bei.Korrespondenz, Maßnahmen..Finanzhilfe.Sachleistung) %>%
+  count(Maßnahmen..Information...Beratung, Maßnahmen..Weitervermittlung,
+        Maßnahmen..Hilfe.bei.Anträgen.Korres..., Maßnahmen..Hilfe.bei.Korrespondenz, Maßnahmen..Finanzhilfe.Sachleistung)
+
+missing <- as.numeric(measures1_2021 %>% summarise(missing = first(n)))
+
+measures2_2021 <- rbind (
+  
+  raw_2021 %>% select(Maßnahme = Maßnahmen..Information...Beratung) %>%
+    mutate(Maßnahme = replace(Maßnahme, which(Maßnahme == "x"), "Information/Beratung")) %>%
+    count(Maßnahme) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(), 
+  
+  raw_2021 %>% select(Maßnahme = Maßnahmen..Weitervermittlung) %>%
+    mutate(Maßnahme = replace(Maßnahme, which(Maßnahme == "x"), "Weitervermittlung")) %>%
+    count(Maßnahme) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Maßnahme = Maßnahmen..Hilfe.bei.Anträgen.Korres...) %>%
+    mutate(Maßnahme = replace(Maßnahme, which(Maßnahme == "x"), "Hilfe bei Anträgen")) %>%
+    count(Maßnahme) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Maßnahme = Maßnahmen..Hilfe.bei.Korrespondenz) %>%
+    mutate(Maßnahme = replace(Maßnahme, which(Maßnahme == "x"), "Hilfe bei Korrespondenz")) %>%
+    count(Maßnahme) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail(),
+  
+  raw_2021 %>% select(Maßnahme = Maßnahmen..Finanzhilfe.Sachleistung) %>%
+    mutate(Maßnahme = replace(Maßnahme, which(Maßnahme == "x"), "Finanzhilfe/Sachleistung")) %>%
+    count(Maßnahme) %>%
+    mutate(Prozent = round((n/(sum(n)-missing))*100,2)) %>%
+    slice_tail()
+)
+```
+
+```{r include = FALSE}
+### Daten vorbereiten für statistische Analysen
+df <- bind_rows(raw_2021)
+index <- c("x", "")  
+values <- c(1,0)
+mfh <- values[match(df$Maßnahmen..Finanzhilfe.Sachleistung, index)] 
+df$finanzhilfe <- factor(mfh, order = TRUE)
+
+mfh <- values[match(df$Maßnahmen..Finanzhilfe.Sachleistung, index)] 
+df$finanzhilfe <- factor(mfh, order = TRUE)
+
+mag <- values[match(df$Maßnahmen..Hilfe.bei.Anträgen.Korres..., index)] 
+df$antraghilfe <- factor(mag, order = TRUE)
+
+mkh <- values[match(df$Maßnahmen..Hilfe.bei.Korrespondenz, index)] 
+df$korrespondenzhilfe <- factor(mkh, order = TRUE)
+
+mwv <- values[match(df$Maßnahmen..Weitervermittlung, index)] 
+df$weitervermittlung <- factor(mwv, order = TRUE)
+
+mib <- values[match(df$Maßnahmen..Information...Beratung, index)] 
+df$beratung <- factor(mib, order = TRUE)
+
+index <- c("telefonisch", "per Email/online", "persönlich")  
+values <- c(1,1,0)
+ob <- values[match(df$Beratungsgespräch.findet.statt., index)] 
+df$online_beratung <- factor(ob, order = TRUE)
+
+index <- c("Keine", "1 Kind", "2 Kinder", "Mehr als 2 Kinder")  
+values <- c(0,1,2,3)
+df$kinder <- values[match(df$Anzahl.der.Kinder.im.Haushalt, index)] 
+
+index <- c("Weiblich", "Männlich", "Divers")  
+values <- c(1,0,0)
+w <- values[match(df$Geschlecht, index)] 
+df$weiblich <- factor(w, order = TRUE)
+
+index <- c("Alleinerziehend (Ein-Eltern-Familie)", "Alleinstehend (Einpersonenhaushalt)", "Ehe/Partnerschaft/Familie")  
+values <- c(0,0,1)
+fam <- values[match(df$Familiensituation, index)] 
+df$ehe_familie <- factor(fam, order = TRUE)
+
+index <- c("Alleinerziehend (Ein-Eltern-Familie)", "Alleinstehend (Einpersonenhaushalt)", "Ehe/Partnerschaft/Familie")  
+values <- c(1,1,0)
+fam <- values[match(df$Familiensituation, index)] 
+df$allein <- factor(fam, order = TRUE)
+
+index <- c("bis 17", "18-20", "21-24", "25-29", "30-39", "40-49", "50-59", "60-64", "ab 65", "unbekannt")  
+values <- c(1,2,3,4,5,6,7,8,9, NA)
+df$alter <- values[match(df$Alter.des.der.Klient.in, index)] 
+
+index <- c("kein Abschluss", "Schulabschluss", "abgeschlossene  Berufsausbildung", "Studienabschluss")  
+values <- c(0,1,1,1)
+ba <- values[match(df$Bildungsabschluss, index)] 
+df$abschluss <- factor(ba, order = TRUE)
+
+index <- c("kein Abschluss", "Schulabschluss", "abgeschlossene  Berufsausbildung", "Studienabschluss")  
+values <- c(0,0,1,1)
+ba <- values[match(df$Bildungsabschluss, index)] 
+df$ausbildung_oder_studium <- factor(ba, order = TRUE)
+
+index <- c("x", "")  
+values <- c(1,0)
+alg <- values[match(df$Einkommensart..ALG.II, index)] 
+df$alg2 <- factor(alg, order = TRUE)
+
+rentner <- values[match(df$Einkommensart..Rente, index)] 
+df$rente <- factor(rentner, order = TRUE)
+
+kg <- values[match(df$Einkommensart..Rente, index)] 
+df$kindergeld <- factor(kg, order = TRUE)
+
+rentner <- values[match(df$Einkommensart..Rente, index)] 
+df$rente <- factor(rentner, order = TRUE)
+
+mig <- values[match(df$Migrationshintergrund.des.Hilfesuchenden, index)]
+df$migrationshintergrund <- factor(mig, order = TRUE)
+
+jc <- values[match(df$Schwierigkeiten.Erreichbarkeit, index)]
+df$jobcenter_schwierig <- factor(jc, order = TRUE)
+
+jca <- values[match(df$Schwierigkeiten.mit.Antragstellung, index)]
+df$jobcenterantrag_schwierig <- factor(jca, order = TRUE)
+
+schlechtereink <- values[match(df$Einkommenssituation.verschlechtert, index)] 
+df$fin_verschlechtert <- factor(schlechtereink, order = TRUE)
+
+krank <- values[match(df$Problemlage..Krankheit, index)] 
+df$krankheit <- factor(krank, order = TRUE)
+
+beh <- values[match(df$Problemlage..Behinderung, index)] 
+df$behinderung <- factor(beh, order = TRUE)
+
+cfs <- values[match(df$Corona.Schulden, index)] 
+df$corona_fin_schlechter <- factor(cfs, order = TRUE)
+
+cws <- values[match(df$Corona.Wohnschulden, index)] 
+df$corona_wohnschulden <- factor(cws, order = TRUE)
+
+sp <- values[match(df$Problemlage..Sprachprobleme, index)] 
+df$sprachprob <- factor(sp, order = TRUE)
+
+bp <- values[match(df$Problemlage..Umgang.mit.Behörden, index)] 
+df$behoerden_probleme <- factor(bp, order = TRUE)
+
+al <- values[match(df$Problemlage..Arbeitslosigkeit, index)] 
+df$Arbeitslosigkeit <- factor(al, order = TRUE)
+
+srp <- values[match(df$Problemlage..sozialrechtliche.Probleme, index)]
+df$sozrechtprob <- factor(srp, order = TRUE)
+
+sankt <- values[match(df$Problemlage..Sanktionen.nach.SGB.II, index)]
+df$Sanktionen <- factor(sankt, order = TRUE)
+
+famprob <- values[match(df$Problemlage..Partner...Erziehung..fam..., index)]
+df$Familienprobleme <- factor(famprob, order = TRUE)
+
+pflegebed <- values[match(df$Problemlage..Alter.Pflegebedürftigkeit, index)]
+df$Pflegebeduerftigkeit <- factor(pflegebed, order = TRUE)
+
+wohnen <- values[match(df$Problemlage..Bereich.Wohnen, index)]
+df$Wohnprobleme <- factor(wohnen, order = TRUE)
+
+schulden <- values[match(df$Problemlage..Schulden.allgemein, index)]
+df$Schulden <- factor(schulden, order = TRUE)
+
+index <- c("", "weniger als 12 Monate", "12-24 Monate", "25-36 Monate", "mehr als 36 Monate")  
+values <- c(0,0,0,1,1)
+alg24 <- values[match(df$Länge.Bezug.von.ALGII..Kinderz.., index)]
+df$ALG_24plus <- factor(alg24, order = TRUE)
+
+index <- c("", "weniger als 12 Monate", "12-24 Monate", "25-36 Monate", "mehr als 36 Monate")  
+values <- c(0,0,0,0, 1)
+alg36 <- values[match(df$Länge.Bezug.von.ALGII..Kinderz.., index)]
+df$ALG_36plus <- factor(alg36, order = TRUE)
+```
+
+### Änderungen
+
+•	Anzahl der Kinder in zwei Dummy-Variablen aufgeteilt: keine Kinder vs. mindestens ein Kind; mehr als zwei Kinder vs. 0-2 Kinder
+\medskip \newline \noindent
+•	Alleinstehend und alleinerziehend voneinander getrennt
+\medskip \newline \noindent
+•	Interaktive Variable Abschluss * Migrationshintergrund eingefügt
+\medskip \newline \noindent
+•	4 Logit-Regressionen (Random Forest kann natürlich noch gemacht werden, für jetzt halte ich die Koeffizienten vom Logit-Modell aber für sinnvoller für unser Meeting): 
+\medskip \newline \noindent
+1)	Wer ist arbeitslos? 
+\medskip \newline \noindent
+2)	Wer bezieht weniger als 12 Monate lang ALG II? 
+\medskip \newline \noindent
+3)	Wer „kommt nicht raus“, d.h. bezieht mehr als 3 Jahre lange ALG II? 
+\medskip \newline \noindent
+4)	Wer hat Probleme mit dem Jobcenter? 
+
+
+```{r include = FALSE}
+index <- c("Keine", "1 Kind", "2 Kinder", "Mehr als 2 Kinder")  
+values <- c(1,0,0,0)
+df$keine_kinder <- values[match(df$Anzahl.der.Kinder.im.Haushalt, index)] 
+
+index <- c("Keine", "1 Kind", "2 Kinder", "Mehr als 2 Kinder")  
+values <- c(0,0,0,1)
+df$viele_kinder <- values[match(df$Anzahl.der.Kinder.im.Haushalt, index)] 
+
+index <- c("Alleinerziehend (Ein-Eltern-Familie)", "Alleinstehend (Einpersonenhaushalt)", "Ehe/Partnerschaft/Familie")  
+values <- c(1,0,0)
+fam <- values[match(df$Familiensituation, index)] 
+df$alleinerziehend <- factor(fam, order = TRUE)
+
+index <- c("Alleinerziehend (Ein-Eltern-Familie)", "Alleinstehend (Einpersonenhaushalt)", "Ehe/Partnerschaft/Familie")  
+values <- c(0,1,0)
+fam <- values[match(df$Familiensituation, index)] 
+df$alleinstehend <- factor(fam, order = TRUE)
+
+index <- c("", "weniger als 12 Monate", "12-24 Monate", "25-36 Monate", "mehr als 36 Monate")  
+values <- c(0,1,0,0,0)
+alg12 <- values[match(df$Länge.Bezug.von.ALGII..Kinderz.., index)]
+df$ALG_12minus <- factor(alg12, order = TRUE)
+```
+
+```{r include = FALSE}
+# Beobachtungen mit fehlenden Daten entfernen:
+df <- df[!is.na(df$weiblich),]
+df <- df[!is.na(df$finanzhilfe),]
+df <- df[!is.na(df$kinder),]
+df <- df[!is.na(df$ehe_familie),]
+df <- df[!is.na(df$alter),]
+df <- df[!is.na(df$abschluss),]
+df <- df[!is.na(df$ausbildung_oder_studium),]
+df <- df[!is.na(df$alg2),]
+df <- df[!is.na(df$kindergeld),]
+df <- df[!is.na(df$jobcenter_schwierig),]
+df <- df[!is.na(df$jobcenterantrag_schwierig),]
+df <- df[!is.na(df$corona_fin_schlechter),]
+df <- df[!is.na(df$corona_wohnschulden),]
+df <- df[!is.na(df$krankheit),]
+df <- df[!is.na(df$behinderung),]
+df <- df[!is.na(df$online_beratung),]
+df <- df[!is.na(df$Wohnprobleme),]
+df <- df[!is.na(df$Schulden),]
+df <- df[!is.na(df$Pflegebeduerftigkeit),]
+df <- df[!is.na(df$Familienprobleme),]
+df <- df[!is.na(df$Sanktionen),]
+df <- df[!is.na(df$Wohnprobleme),]
+df <- df[!is.na(df$sozrechtprob),]
+df <- df[!is.na(df$Arbeitslosigkeit),]
+df <- df[!is.na(df$behoerden_probleme),]
+df <- df[!is.na(df$sprachprob),]
+df <- df[!is.na(df$ALG_36plus),]
+df <- df[!is.na(df$migrationshintergrund),]
+```
+
+
+```{r include = FALSE}
+# Rentner*innen nicht miteinbeziehen in die Analyse
+data_unter65 <- subset(df, alter < 9)
+
+# Analyse mit logistischer Regression: Wer ist arbeitslos?
+log_mod_11 <- glm(as.factor(Arbeitslosigkeit) ~ keine_kinder + viele_kinder + alter + abschluss + migrationshintergrund + abschluss*migrationshintergrund + weiblich + alleinstehend + alleinerziehend + behinderung + krankheit, data = data_unter65, family = binomial)
+summary(log_mod_11)
+```
+
+```{r include = FALSE}
+log_mod_12 <- glm(as.factor(ALG_12minus) ~ keine_kinder + viele_kinder + alter + abschluss + migrationshintergrund + abschluss*migrationshintergrund + weiblich + alleinstehend + alleinerziehend + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod_12)
+```
+
+```{r include = FALSE}
+log_mod_13 <- glm(as.factor(ALG_36plus) ~ keine_kinder + viele_kinder + alter + abschluss + migrationshintergrund + abschluss*migrationshintergrund + weiblich + alleinstehend + alleinerziehend + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod_13)
+```
+
+```{r include = FALSE}
+log_mod_14 <- glm(as.factor(jobcenter_schwierig) ~ keine_kinder + viele_kinder + alter + abschluss + migrationshintergrund + abschluss*migrationshintergrund + weiblich + alleinstehend + alleinerziehend + behinderung + krankheit, data = df, family = binomial)
+summary(log_mod_14)
+```
+
+\newpage 
+## Wer ist arbeitslos? 
+
+```{r}
+summary(log_mod_11)
+```
+
+\newpage 
+## Wer bezieht weniger als 12 Monate ALG II?
+
+```{r}
+summary(log_mod_12)
+```
+
+\newpage 
+## Wer bezieht mehr als 3 Jahre ALG II?
+
+```{r}
+summary(log_mod_13)
+```
+
+\newpage 
+## Wer hat Schwierigkeiten mit dem Jobcenter?
+
+```{r}
+summary(log_mod_14)
+```
+
+\newpage 
+## Kernaussagen
+
+1) Menschen ohne Kinder sind eher arbeitslos als Menschen mit Kindern; Menschen ohne Kinder kommen jedoch schneller aus der Arbeitslosigkeit heraus als Menschen mit vielen Kindern. 
+
+\medskip \noindent
+
+2) Mit steigendem Alter wird es schwieriger aus der Arbeitslosigkeit herauszukommen. Allerdings haben jüngere Menschen eher Probleme mit dem Jobcenter als ältere.
+
+\medskip \noindent
+
+
+3) Menschen ohne Abschluss und Menschen mit Migrationshintergrund haben keine erhöhte Wahrscheinlichkeit arbeitslos zu werden, wie man vermuten könnte. Allerdings haben Menschen ohne Abschluss ein viel höheres Risiko für Langzeitsarbeitslosigkeit als Menschen mit Abschluss. Menschen ohne Migrationshintergrund sind tendenziell eher langzeitsarbeitlos als Menschen mit Migrationshintergrund. Menschen ohne Abschluss haben größere Probleme mit dem Jobcenter, während das Vorliegen eines Migrationshintergrunds keinen maßgeblichen Einfluss auf Probleme mit dem Jobcenter hat. Ein Abschluss hilft insbesondere Menschen ohne Migrationshintergrund ihr Risiko der Langzeitsarbeitslosigkeit zu senken. 
+
+\medskip \noindent
+Langzeitsarbeitslosigkeit (> 3 Jahre ALG II):
+\newline \noindent
+Kein Abschluss, kein Migrationshintergrund: 36.1\%
+\newline \noindent
+Abschluss, kein Migrationshintergrund: 16.1\%
+\newline \noindent
+Kein Abschluss, Migrationshintergrund: 25.8\%
+\newline \noindent
+Abschluss, Migrationshintergrund: 19.9\%
+
+
+```{r include = FALSE}
+keeps <- c("ALG_36plus", "abschluss", "migrationshintergrund")
+df2 <- df[keeps]
+table(df2)
+```
+
+\medskip \noindent 
+
+4) Arbeitslose, die zur ASB kommen, sind zumeist Männer.  
+
+\medskip \noindent 
+
+5) Alleinerziehende haben ein größeres Arbeitslosigkeitsrisiko und kommen schwer aus der Arbeitslosigkeit heraus. Zudem haben sie mit viel höherer Wahrscheinlichkeit Probleme mit dem Jobcenter. Alleinstehende haben ebenfalls ein erhöhtes Risiko für langfristige Arbeitslosigkeit, haben jedoch kein erhöhtes Risiko in erster Linie arbeitslos zu werden. 
+
+\medskip \noindent 
+
+6) Kranke Menschen werden eher arbeitslos als gesunde Menschen, während behinderte Menschen mit geringerer Wahrscheinlichkeit arbeitslos werden. Gesundheit hat jedoch keinen maßgeblichen Einfluss auf Langzeitarbeitslosigkeit oder Probleme mit dem Jobcenter. 
+
+
+```{r include = FALSE}
+keeps <- c("ALG_36plus", "abschluss", "migrationshintergrund")
+df2 <- df[keeps]
+table(df2)
+```
+
+
+
+
+
