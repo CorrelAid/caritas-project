@@ -5,6 +5,10 @@ if(!require(gridExtra)){
   install.packages("gridExtra")}
 library(gridExtra)
 library(tidyverse)
+library(ggrepel)
+
+raw_2021 <- read.csv2("A:/Rohdaten/Rohdaten_2021.csv", encoding = "UTF-8")
+
 
 # Daten
 algII <- raw_2021 %>% 
@@ -71,3 +75,5 @@ bildung <- ggplot(algII, aes(x = Langzeitarbeitslos, fill = Abschluss)) +
 # Kombinierte Grafik
 plot_langzeitarbeitslos <- grid.arrange(alleinerziehend, bildung, nrow = 2)
 plot_langzeitarbeitslos
+
+
