@@ -1,0 +1,22 @@
+---
+title: "Datenauswertung ASB Caritas"
+author: "Correlaid Team"
+date: "9 1 2022"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("skripte/Caritas_Data_Cleaning_2010_to_2021.R", encoding = "UTF-8")
+```
+## Einleitung
+
+
+## Familienstand & Geschlecht
+```{r Setup Familienstand, include=FALSE}
+source("skripte/GenderFamily_Chart_Markdown.R", encoding = "UTF-8")
+```

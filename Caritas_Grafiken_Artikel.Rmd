@@ -1,0 +1,34 @@
+---
+title: "CorrelAid: Grafiken für Artikel in 'Neue caritas'"
+date: "19. März 2022"
+lang: de-DE
+output: pdf_document
+---
+
+\newpage
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("skripte/Caritas_Data_Cleaning_2010_to_2021.R", encoding = "UTF-8")
+```
+
+# Grafik 1: Langzeitarbeitslosigkeit
+```{r Grafik 1-Skript, include=FALSE, warning=FALSE, message=FALSE}
+source("skripte/Artikel_Grafik_Langzeitarbeitslosigkeit.R", encoding = "UTF-8")
+```
+
+```{r Grafik 1, warning = FALSE, message = FALSE, fig.width = 7}
+grid.arrange(alleinerziehend, bildung, nrow = 2)
+```
+
+\newpage
+
+
+# Grafik 2: Problemlagen im Zeitverlauf
+```{r Grafik 2-Skript, include=FALSE, warning=FALSE, message=FALSE}
+source("skripte/Artikel_Grafik_Problemlagen.R", encoding = "UTF-8")
+```
+
+```{r Grafik 2, warning = FALSE, message = FALSE, fig.width = 9}
+plot_problems
+```
