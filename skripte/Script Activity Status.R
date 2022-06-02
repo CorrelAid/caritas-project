@@ -80,7 +80,6 @@ ggplot(Aktivität_Alle, aes(x = TIME, y = Prozent, group = Aktivität, color = Akt
     plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
   )
 
-# Das ist irgendwie überraschend?!
 
 
 

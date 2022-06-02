@@ -108,7 +108,6 @@ ggplot(Alter, aes(x = TIME, y = Total_Prozent, group = Altersgruppe, color = Alt
     plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5)
   )
 
-# Das ist nicht spannend... 
 
 
 
